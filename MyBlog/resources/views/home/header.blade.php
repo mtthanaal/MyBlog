@@ -37,7 +37,8 @@
                      @if (Route::has('login'))
 
                      @auth
-                     <li><a href="{{route('login')}}">Home</a></li>
+                     <x-app-layout>
+                        </x-app-layout>
                   
                      @else
                      <li><a href="{{route('login')}}">Login</a></li>
