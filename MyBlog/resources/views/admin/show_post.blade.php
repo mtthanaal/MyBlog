@@ -50,6 +50,17 @@
       <!-- Sidebar Navigation end-->
       <div class="page-content">
 
+      @if (session()->has('message'))
+
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert"aria-hidden="true">x</button>
+
+        {{session()->get('message')}}
+
+      </div>
+      
+      @endif
+
       <h1 class="title_deg">All Post</h1>
 
       <table class="table_deg">
@@ -61,6 +72,7 @@
             <th>Post Status</th>
             <th>User Type</th>
             <th>Image</th>
+            <th>Delete</th>
 
         </tr>
 
@@ -77,6 +89,12 @@
             <td>
                 <img class="img_deg" src="postimage/{{$post->image}}" >
             </td>
+
+            <td>
+              <a href="{{url('delete_post',$post->id)}}" class="btn btn-danger " onclick="return confirm('Are you sure to Delete this?')">Delete</a>
+            </td>
+
+
         </tr>
 
 
