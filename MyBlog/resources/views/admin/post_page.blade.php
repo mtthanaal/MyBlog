@@ -2,6 +2,7 @@
 <html>
   <head> 
     @include('admin.css')
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <style type="text/css">
 
         .post_title
@@ -22,6 +23,11 @@
         {
           display: inline-block;
           width: 200px;
+        }
+        .ck-editor__editable_inline
+        {
+          height: 400px;
+          
         }
 
     </style>    
@@ -69,7 +75,7 @@
 
           <div class="div_center">
               <label>Post Description</label>
-              <textarea name="description"></textarea>
+              <textarea id="editor" name="description"></textarea>
           </div>
 
           <div class="div_center">
@@ -92,5 +98,13 @@
     </div>
 
         @include('admin.footer')
+
+        <script>
+          ClassicEditor
+          .create(document.querySelector('#editor'))
+          .catch(error => {
+            console.error(error);
+          });
+        </script>
   </body>
 </html>
