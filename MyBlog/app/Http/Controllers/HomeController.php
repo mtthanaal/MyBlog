@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use Alert;
 
 class HomeController extends Controller
 {
@@ -78,6 +79,7 @@ class HomeController extends Controller
 
         }
         $post->save();
+        Alert::success('Congrats','You have added the data successfully');
         return redirect()->back();
     }
     
