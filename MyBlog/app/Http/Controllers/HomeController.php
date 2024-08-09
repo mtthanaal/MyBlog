@@ -90,6 +90,18 @@ class HomeController extends Controller
         $data=Post::where('user_id','=',$userid)->get();
         return view('home.my_post',compact('data'));
     }
+
+    public function my_post_del($id)
+    {
+        $data = Post::find($id);
+        $data->delete();
+        return redirect()->back()->with('message','Post deleted successfully');
+    }
+
+    public function post_update_page($id)
+    {
+        return view('home.post_update_page');
+    }
     
 
 }
