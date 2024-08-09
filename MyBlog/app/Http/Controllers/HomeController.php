@@ -82,6 +82,14 @@ class HomeController extends Controller
         Alert::success('Congrats','You have added the data successfully');
         return redirect()->back();
     }
+
+    public function my_post()
+    {
+        $user=Auth::user();
+        $userid=$user->id;
+        $data=Post::where('user_id','=',$userid)->get();
+        return view('home.my_post',compact('data'));
+    }
     
 
 }
