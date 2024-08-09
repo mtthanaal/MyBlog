@@ -114,4 +114,11 @@ class AdminController extends Controller
         return redirect()->back()->with('message','Post status changed to Rejected');
     }
 
+    public function homepage()
+
+    {
+        $post = Post::all();
+        return view ('home.homepage',compact('post'));
+    }
+
 }
