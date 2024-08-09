@@ -10,7 +10,7 @@
                   @foreach ( $post as $post )
                   
                  
-                  <div class="col-md-4">
+                  <div class="col-md-4" style="padding: 30px;">
                      <div><img style="margin: bottom 20px; height: 200px" width="350px" src="/postimage/{{$post->image}}" class="services_img"></div>
                      <h4>{{$post->title}}</h4>
                      <p>Post by <b>{{$post->name}}</b> </p>
