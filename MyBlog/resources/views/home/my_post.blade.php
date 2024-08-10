@@ -5,6 +5,7 @@
       @include('home.homecss')
 
       <style type="text/css">
+         
         .post_deg
         {
             padding: 30px;
