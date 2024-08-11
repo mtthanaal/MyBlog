@@ -68,3 +68,5 @@ Route::get('/accept_post/{id}',[AdminController::class,'accept_post']);
 Route::get('/reject_post/{id}',[AdminController::class,'reject_post']);
 
 Route::get('/homepage',[AdminController::class,'homepage'])->name('home.homepage');;
+
+Route::post('/submit_review', [HomeController::class, 'store'])->name('submit_review');

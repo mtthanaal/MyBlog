@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use Alert;
+use App\Models\Review;
+
+
+
 
 class HomeController extends Controller
 {
@@ -44,10 +48,12 @@ class HomeController extends Controller
     }
 
     public function post_details($id)
-    {
-        $post = Post::find($id);
-        return view('home.post_details',compact('post'));
-    }
+{
+    $post = Post::find($id);
+    $reviews = Review::where('post_id', $id)->get(); // Ensure this line is retrieving reviews
+    return view('home.post_details', compact('post', 'reviews'));
+}
+
 
     public function create_post()
     {
@@ -126,7 +132,43 @@ class HomeController extends Controller
         return redirect()->back()->with('message','Post Updated Successfully');
     }
 
+    //     public function submit_review(Request $request)
+    // {
+    //     $review = new Review;
+    //     $review->post_id = $request->post_id; 
+    //     $review->user_name = auth()->user()->name;
+    //     $review->rating = $request->rating;
+    //     $review->comment = $request->comment;
+    //     $review->save();
+
+    //     return back()->with('message', 'Review submitted successfully!');
+    // }
+
+    public function store(Request $request)
+    {
+        
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|max:255',
+            'post_id' => 'required|integer|exists:posts,id',
+        ]);
+
+       
+        Review::create([
+            'post_id' => $request->post_id,
+            'user_name' => auth()->user()->name, 
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+
+        
+        return redirect()->route('post_details', ['id' => $request->post_id])->with('success', 'Review submitted successfully!');
+    }
+
     
+
+
+  
     
 
 }
