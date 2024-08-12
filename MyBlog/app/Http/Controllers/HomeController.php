@@ -146,7 +146,7 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-        
+        // dd( $request);
         $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'required|string|max:255',
@@ -154,15 +154,26 @@ class HomeController extends Controller
         ]);
 
        
-        Review::create([
-            'post_id' => $request->post_id,
-            'user_name' => auth()->user()->name, 
-            'rating' => $request->rating,
-            'comment' => $request->comment,
-        ]);
+        // Review::create([
+        //     'post_id' => $request->post_id,
+        //     'user_name' => auth()->user()->name, 
+        //     'rating' => $request->rating,
+        //     'comment' => $request->comment,
+        // ]);
 
         
-        return redirect()->route('post_details', ['id' => $request->post_id])->with('success', 'Review submitted successfully!');
+        $user=Auth()->user();
+        
+        $review = new Review;
+        $review->post_id = $request->post_id; 
+        $review->user_name = 'ss';
+        $review->rating = $request->rating;
+        $review->comment = $request->comment;
+        $review->save();
+
+        
+        // return redirect()->route('post_details', ['id' => $request->post_id])->with('success', 'Review submitted successfully!');
+        return back()->with('success', 'Review submitted successfully!');
     }
 
     

@@ -127,7 +127,9 @@
                <label for="comment">Comment:</label>
                <textarea name="comment" id="comment" rows="4" required></textarea>
             </div>
+            <input type="hidden" name="post_id" value="{{$post->id}}">
             <input type="submit" value="Submit Review">
+            
          </form>
 
          <div class="review-display">
