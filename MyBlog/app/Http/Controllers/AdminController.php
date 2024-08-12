@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Review;
 
 class AdminController extends Controller
 {
@@ -13,93 +14,69 @@ class AdminController extends Controller
     {
         return view ('admin.post_page');
     }
+
     public function add_post(Request $request)
     {
-        $user=Auth()->user();
-        $userid = $user->id;
-        $name = $user->name;
-        $usertype = $user->usertype;
+        $user = Auth::user();
 
-
-
-        $post=new Post;
+        $post = new Post;
         $post->title = $request->title;
         $post->description = $request->description;
         $post->post_status = 'active';
-        $post->user_id = $userid;
-        $post->name = $name;
-        $post->usertype = $usertype;
+        $post->user_id = $user->id;
+        $post->name = $user->name;
+        $post->usertype = $user->usertype;
 
-        $image = $request->image;
-
-        if($image)
+        if($request->hasFile('image'))
         {
-        $imagename=time().'.'.$image->getClientOriginalExtension();
-        $request->image->move('postimage',$imagename);
-        $post->image = $imagename;
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('postimage'), $imageName);
+            $post->image = $imageName;
         }
-        
-
 
         $post->save();
         return redirect()->back()->with('message','Post Added Successfully');
-
     }
 
     public function show_post()
     {
         $post = Post::all();
-        return view('admin.show_post',compact('post'));
+        return view('admin.show_post', compact('post'));
     }
 
-
     public function delete_post($id)
-
     {
-        $post = Post::find($id);
-
+        $post = Post::findOrFail($id);
         $post->delete();
-
-        return redirect()->back()->with('message','Post Deleted Succesfully');
+        return redirect()->back()->with('message','Post Deleted Successfully');
     }
 
     public function edit_page($id)
-
     {
-        $post = Post::find($id);
-
-        return view('admin.edit_page',compact('post'));
-
+        $post = Post::findOrFail($id);
+        return view('admin.edit_page', compact('post'));
     }
 
-    public function update_post(Request $request,$id)
+    public function update_post(Request $request, $id)
     {
-        $data = Post::find($id);
-
+        $data = Post::findOrFail($id);
         $data->title = $request->title;
         $data->description = $request->description;
-        $image=$request->image;
 
-        if($image)
+        if($request->hasFile('image'))
         {
-            $imagename=time().'.'.$image->getClientOriginalExtension();
-            $request->image->move('postimage',$imagename);
-            $data->image = $imagename;
-
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('postimage'), $imageName);
+            $data->image = $imageName;
         }
 
-
         $data->save();
-
-        return redirect()->back()->with('message','Post Updated Succesfully');
-
-
+        return redirect()->back()->with('message','Post Updated Successfully');
     }
 
     public function accept_post($id)
     {
-
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->post_status = 'active';
         $post->save();
         return redirect()->back()->with('message','Post status changed to Active');
@@ -107,18 +84,29 @@ class AdminController extends Controller
 
     public function reject_post($id)
     {
-
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->post_status = 'rejected';
         $post->save();
         return redirect()->back()->with('message','Post status changed to Rejected');
     }
 
     public function homepage()
-
     {
         $post = Post::all();
-        return view ('home.homepage',compact('post'));
+        return view ('home.homepage', compact('post'));
     }
 
+    // public function listReviews()
+    // {
+    //     $reviews = Review::where('approved', false)->get();
+    //     return view('admin.reviews', compact('reviews'));
+    // }
+
+    // public function approveReview($id)
+    // {
+    //     $review = Review::findOrFail($id);
+    //     $review->approved = true;
+    //     $review->save();
+    //     return redirect()->back()->with('message', 'Review approved.');
+    // }
 }

@@ -1,115 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <!-- basic -->
+      <!-- Basic -->
       <base href="/public">
       @include('home.homecss')
-
-      <style>
-         .review-section {
-            width: 80%;
-            margin: 50px auto;
-            text-align: left;
-         }
-
-         .review-form {
-            margin-top: 30px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-         }
-
-         .review-form label {
-            font-size: 16px;
-            font-weight: bold;
-         }
-
-         .review-form input[type="text"],
-         .review-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-         }
-
-         .review-form .rating {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 15px;
-         }
-
-         .review-form .rating input {
-            display: none;
-         }
-
-         .review-form .rating label {
-            font-size: 30px;
-            color: #ccc;
-            cursor: pointer;
-         }
-
-         .review-form .rating input:checked ~ label {
-            color: #f39c12;
-         }
-
-         .review-form input[type="submit"] {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-         }
-
-         .review-form input[type="submit"]:hover {
-            background-color: #218838;
-         }
-
-         .review-display {
-            margin-top: 40px;
-         }
-
-         .review-display .review {
-            border-bottom: 1px solid #ddd;
-            padding: 15px 0;
-         }
-
-         .review-display .review:last-child {
-            border-bottom: none;
-         }
-
-         .review-display .review h5 {
-            margin-bottom: 5px;
-            font-weight: bold;
-         }
-
-         .review-display .review .rating {
-            color: #f39c12;
-            margin-bottom: 10px;
-         }
-      </style>
    </head>
+
    <body>
-      <!-- header section start -->
+      <!-- Header section start -->
       <div class="header_section">
          @include('home.header')
       </div>
 
+      <!-- Post Details section -->
       <div style="text-align: center;" class="col-md-12">
-         <div><img style="padding: 20px;" src="/postimage/{{$post->image}}" class="services_img"></div>
          <h3><b>{{$post->title}}</b></h3>
-         <h4>{{$post->description}}</h4>
-         <p>Post by <b>{{$post->name}}</b> </p>
+         <div>
+            <img id="postImage" style="padding: 20px; cursor: pointer;" src="/postimage/{{$post->image}}" class="services_img">
+         </div>
+        
+         <h4 class="description_text">{{$post->description}}</h4>
+         <div class="description_line"></div>
+         <p>Post by <b>{{$post->name}}</b></p>
       </div>
 
+      <div class="video_section">
+         <h4>Watch This Blog's Video:</h4>
+         <iframe width="853" height="480" src="https://www.youtube.com/embed/q0mbKsKG-ng" title="Sri Lanka - Heart of the Indian Ocean" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+
+      <!-- Review section -->
       <div class="review-section">
          <h4>Leave a Review</h4>
-         <form action="{{url('submit_review')}}" method="POST" class="review-form">
+         <form action="{{route('submit_review')}}" method="POST" class="review-form">
             @csrf
             <div class="rating">
                <input type="radio" name="rating" value="5" id="5" required>
@@ -129,36 +52,36 @@
             </div>
             <input type="hidden" name="post_id" value="{{$post->id}}">
             <input type="submit" value="Submit Review">
-            
          </form>
 
          <div class="review-display">
             <h4>Reviews:</h4>
             @foreach ($reviews as $review)
-            <div class="review">
-               <h5>{{$review->user_name}}</h5>
-               <div class="rating">
-                  @for ($i = 0; $i < $review->rating; $i++)
-                  ★
-                  @endfor
+               <div class="review">
+                  <h5>{{ $review->user_name }}</h5>
+                  <div class="rating">
+                        @for ($i = 0; $i < $review->rating; $i++)
+                        ★
+                        @endfor
+                  </div>
+                  <p>{{ $review->comment }}</p>
                </div>
-               <p>{{$review->comment}}</p>
-            </div>
             @endforeach
          </div>
+
       </div>
 
-      <!-- footer section start -->
+      <!-- Footer section start -->
       @include('home.footer')
-      <!-- footer section end -->
+      <!-- Footer section end -->
 
-      <!-- copyright section start -->
+      <!-- Copyright section start -->
       <div class="copyright_section">
          <div class="container">
             <p class="copyright_text">2024 All Rights Reserved. Design by <a href="https://thanaal-portfolio.vercel.app/">MT.Thanaal Fowkhan</a></p>
          </div>
       </div>
-      <!-- copyright section end -->
+      <!-- Copyright section end -->
 
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
@@ -166,11 +89,18 @@
       <script src="js/bootstrap.bundle.min.js"></script>
       <script src="js/jquery-3.0.0.min.js"></script>
       <script src="js/plugin.js"></script>
-      <!-- sidebar -->
+      <!-- Sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
-      <!-- javascript -->
+      <!-- Javascript -->
       <script src="js/owl.carousel.js"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+      <!-- Custom JavaScript for Zoom Out Effect -->
+      <script>
+         document.getElementById('postImage').addEventListener('click', function () {
+            this.classList.toggle('zoom-out');
+         });
+      </script>
    </body>
 </html>

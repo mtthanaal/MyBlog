@@ -15,6 +15,8 @@
 
         <li><a href="{{url('/show_post')}}"> <i class="fa fa-bar-chart"></i>Show Post </a></li>
 
+        <li><a href="{{route('approved_comments')}}"> <i class="icon-chart"></i>Approve Comment </a></li>
+
         <!-- Additional Menu Items -->
         <!-- <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
         <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>

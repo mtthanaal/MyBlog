@@ -14,10 +14,6 @@ class Review extends Model
         'user_name',
         'rating',
         'comment',
+        'approved',
     ];
-
-    public function post()
-    {
-        return $this->belongsTo(Post::class);
-    }
 }
