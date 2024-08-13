@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Reviews</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @include('admin.css')
     <style>
         .container {
             margin-top: 50px;
@@ -41,38 +43,64 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Manage Reviews</h1>
-        @if(session('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
-        @endif
-        <table class="table">
-            <thead>
-                <tr>
+    @include('admin.header')
+
+    <div class="d-flex align-items-stretch">
+        <!-- Sidebar Navigation-->
+        @include('admin.sidebar')
+        <!-- Sidebar Navigation end-->
+
+        <div class="page-content">
+            @if(session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+
+            <h1 class="title_deg">Manage Reviews</h1>
+            <table class="table_deg">
+                <tr class="th_deg">
                     <th>User Name</th>
                     <th>Rating</th>
                     <th>Comment</th>
                     <th>Actions</th>
                 </tr>
-            </thead>
-            <tbody>
                 @foreach($reviews as $review)
                     <tr>
                         <td>{{ $review->user_name }}</td>
                         <td>{{ $review->rating }}</td>
                         <td>{{ $review->comment }}</td>
                         <td>
-                            <form action="{{ url('model/review/'.$review->id.'/approve') }}" method="POST">
+                            <form action="{{ url('model/review/'.$review->id.'/approve') }}" method="POST" onsubmit="return confirmApproval(event)">
                                 @csrf
                                 <button type="submit" class="btn btn-success">Approve</button>
                             </form>
                         </td>
                     </tr>
                 @endforeach
-            </tbody>
-        </table>
+            </table>
+        </div>
     </div>
+
+    @include('admin.footer')
+
+    <script type="text/javascript">
+        function confirmApproval(ev) {
+            ev.preventDefault();
+            var form = ev.currentTarget;
+            swal({
+                title: "Are you sure you want to approve this review?",
+                text: "This action cannot be undone.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willApprove) => {
+                if (willApprove) {
+                    form.submit();
+                }
+            });
+            return false; // Prevent form submission until confirmation
+        }
+    </script>
 </body>
 </html>

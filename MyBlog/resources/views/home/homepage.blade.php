@@ -24,7 +24,7 @@
       <!-- about section end -->
 
       <!-- blog section start -->
-      @include('home.blogvideos')
+      <!-- @include('home.blogvideos') -->
       <!-- blog section end -->
 
       <!--  projects section start -->
