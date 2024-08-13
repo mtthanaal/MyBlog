@@ -137,7 +137,7 @@ class HomeController extends Controller
 
     public function approvedComments()
     {
-        $reviews = Review::where('approved', true)->get();
+        $reviews = Review::get();
         return view('home.approved_comments', compact('reviews'));
     }
 }
