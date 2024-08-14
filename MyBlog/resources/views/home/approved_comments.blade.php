@@ -57,6 +57,7 @@
             @if(session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
+                    <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
                 </div>
             @endif
 
@@ -66,6 +67,7 @@
                     <th>User Name</th>
                     <th>Rating</th>
                     <th>Comment</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
                 @foreach($reviews as $review)
@@ -73,6 +75,7 @@
                         <td>{{ $review->user_name }}</td>
                         <td>{{ $review->rating }}</td>
                         <td>{{ $review->comment }}</td>
+                        <td>{{ ucfirst($review->status) }}</td>
                         <td>
                             <form action="{{ url('admin/review/'.$review->id.'/approve') }}" method="POST" style="display:inline-block;" onsubmit="return confirmApproval(event)">
                                 @csrf
@@ -97,7 +100,7 @@
             var form = ev.currentTarget;
             swal({
                 title: "Are you sure you want to approve this review?",
-                text: "This action cannot be undone.",
+                // text: "This action cannot be undone.",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -114,7 +117,7 @@
             var form = ev.currentTarget;
             swal({
                 title: "Are you sure you want to reject this review?",
-                text: "This action cannot be undone.",
+                // text: "This action cannot be undone.",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
