@@ -14,11 +14,23 @@ class ReviewController extends Controller
     }
 
     public function approveReview($id)
-    {
-        $review = Review::findOrFail($id);
-        $review->approved = true;
-        $review->save();
+{
+    $review = Review::findOrFail($id);
+    $review->status = 'approved'; // Set the status to 'approved'
+    $review->approved = true; // Keep this line to maintain other functionalities related to the 'approved' field
+    $review->save();
 
-        return redirect()->back()->with('message', 'Review approved successfully.');
-    }
+    return redirect()->back()->with('message', 'Review approved successfully.');
+}
+
+public function rejectReview($id)
+{
+    $review = Review::findOrFail($id);
+    $review->status = 'rejected'; // Set the status to 'rejected'
+    $review->approved = false; // Keep this line to maintain other functionalities related to the 'approved' field
+    $review->save();
+
+    return redirect()->back()->with('message', 'Review rejected successfully.');
+}
+
 }

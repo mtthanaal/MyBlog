@@ -34,6 +34,9 @@
         .btn-success {
             background-color: #28a745;
         }
+        .btn-danger {
+            background-color: #dc3545;
+        }
         .alert {
             padding: 20px;
             background-color: #4CAF50;
@@ -71,9 +74,13 @@
                         <td>{{ $review->rating }}</td>
                         <td>{{ $review->comment }}</td>
                         <td>
-                            <form action="{{ url('model/review/'.$review->id.'/approve') }}" method="POST" onsubmit="return confirmApproval(event)">
+                            <form action="{{ url('admin/review/'.$review->id.'/approve') }}" method="POST" style="display:inline-block;" onsubmit="return confirmApproval(event)">
                                 @csrf
                                 <button type="submit" class="btn btn-success">Approve</button>
+                            </form>
+                            <form action="{{ url('admin/review/'.$review->id.'/reject') }}" method="POST" style="display:inline-block;" onsubmit="return confirmRejection(event)">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Reject</button>
                             </form>
                         </td>
                     </tr>
@@ -96,6 +103,23 @@
                 dangerMode: true,
             }).then((willApprove) => {
                 if (willApprove) {
+                    form.submit();
+                }
+            });
+            return false; // Prevent form submission until confirmation
+        }
+
+        function confirmRejection(ev) {
+            ev.preventDefault();
+            var form = ev.currentTarget;
+            swal({
+                title: "Are you sure you want to reject this review?",
+                text: "This action cannot be undone.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willReject) => {
+                if (willReject) {
                     form.submit();
                 }
             });

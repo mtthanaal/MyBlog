@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
      Route::get('admin/reviews', [ReviewController::class, 'manageReviews'])->name('admin.reviews');
 
     Route::post('admin/review/{id}/approve', [ReviewController::class, 'approveReview']);
+
+    Route::post('admin/review/{id}/reject', [ReviewController::class, 'rejectReview']);
 });
 
 Route::get('/post_details/{id}', [HomeController::class,'post_details'])->name('post_details');
