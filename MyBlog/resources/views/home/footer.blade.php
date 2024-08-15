@@ -1,4 +1,4 @@
-<div class="footer_section layout_padding">
+<!-- <div class="footer_section layout_padding"> -->
          <div class="container">
             <div class="input_btn_main">
                <input type="text" class="mail_text" placeholder="Enter your email" name="Enter your email">
@@ -19,4 +19,4 @@
                </ul>
             </div>
          </div>
-      </div>
+      <!-- </div> -->
