@@ -45,6 +45,9 @@
           background-color: #dc3545;
       }
   </style>
+  <!-- SweetAlert2 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   @include('admin.header')
@@ -68,7 +71,9 @@
               <td>{{ $user->name }}</td>
               <td>{{ $user->email }}</td>
               @if ($user->usertype == "user")
-                <td><a href="{{ url('/deleteuser', $user->id) }}" class="btn btn-danger">Delete</a></td>
+                <td>
+                  <button class="btn btn-danger" onclick="confirmDelete('{{ url('/deleteuser', $user->id) }}')">Delete</button>
+                </td>
               @else
                 <td>Not Allow</td>
               @endif
@@ -79,5 +84,23 @@
     </div>
     @include('admin.footer')
   </div>
+  <script>
+    function confirmDelete(url) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = url;
+        }
+      });
+    }
+  </script>
 </body>
 </html>
