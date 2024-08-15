@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
+<head>
       <!-- basic -->
-      <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
       <style type="text/css">
          body {
             background-color: #f0f2f5;
             font-family: Arial, sans-serif;
          }
-
          .div_deg {
             width: 50%;
             margin: 50px auto;
@@ -18,7 +16,6 @@
             border-radius: 10px;
             text-align: center;
          }
-
          .title_deg {
             font-size: 32px;
             font-weight: bold;
@@ -27,7 +24,6 @@
             margin-bottom: 30px;
             border-bottom: 2px solid #ddd;
          }
-
          label {
             display: block;
             font-size: 18px;
@@ -36,11 +32,9 @@
             margin-bottom: 10px;
             text-align: left;
          }
-
          .field_deg {
             margin-bottom: 25px;
          }
-
          .field_deg input[type="text"],
          .field_deg textarea,
          .field_deg input[type="file"] {
@@ -51,7 +45,6 @@
             border-radius: 5px;
             box-sizing: border-box;
          }
-
          .field_deg input[type="submit"] {
             background-color: #28a745;
             color: white;
@@ -62,25 +55,20 @@
             cursor: pointer;
             transition: background-color 0.3s;
          }
-
          .field_deg input[type="submit"]:hover {
             background-color: #218838;
          }
-
          .container {
             text-align: center;
             padding-top: 20px;
          }
-
          .container a {
             color: #007bff;
             text-decoration: none;
          }
-
          .container a:hover {
             text-decoration: underline;
          }
-
          .copyright_section {
             background-color: #333;
             color: #ccc;
@@ -88,18 +76,16 @@
             text-align: center;
             font-size: 14px;
          }
-
          .copyright_text a {
             color: #fff;
             text-decoration: none;
          }
-
          .copyright_text a:hover {
             text-decoration: underline;
          }
       </style>
 
-      <!-- @include('home.homecss') -->
+      @include('home.homecss')
    </head>
    <body>
       @include('sweetalert::alert')
@@ -117,35 +103,29 @@
 
             <div class="field_deg">
                <label>Title</label>
-               <input type="text" name="title" placeholder="Type your title.........." required>
+               <input type="text" name="title" required placeholder="Type your title..........✍️">
             </div>
-
             <div class="field_deg">
                <label>Description</label>
-               <textarea name="description" id="description" placeholder="Describe everything about this post here....................✍️" required></textarea>
+               <textarea name="description" id="description" required placeholder="Describe everything about this post here....................✍️"></textarea>
             </div>
-
             <div class="field_deg">
                <label>Add Image</label>
                <input type="file" name="image" required>
             </div>
-
             <div class="field_deg">
-               <input type="submit" value="Submit Post" class="btn btn-secondary">
+               <input type="submit" value="Submit" class="btn btn-secondary">
             </div>
          </form>
       </div>
-
-      <!-- @include('home.footer') -->
+       <!-- @include('home.footer') -->
       <!-- footer section end -->
-
-      <!-- copyright section start -->
+         <!-- copyright section start -->
       <div class="copyright_section">
          <div class="container">
             <p class="copyright_text">2024 All Rights Reserved. Design by <a href="https://thanaal-portfolio.vercel.app/">MT.Thanaal Fowkhan</a></p>
          </div>
-      </div>
-      <!-- copyright section end -->
+          <!-- copyright section end -->
 
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
@@ -159,7 +139,7 @@
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script> 
 
       <!-- CKEditor -->
-      <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+      <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
       <script>
          CKEDITOR.replace('description');
       </script>   

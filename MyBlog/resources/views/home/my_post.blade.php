@@ -4,10 +4,12 @@
     <!-- basic -->
     @include('home.homecss')
 
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style type="text/css">
         .table_container {
             padding: 30px;
-            /* background-color:#122c2d; */
             color: lightgray;
             margin: auto;
         }
@@ -111,6 +113,25 @@
         .hover\:underline:hover {
             text-decoration: underline;
         }
+        .description_column {
+            padding: 10px; 
+            max-width: 600px; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: justify;
+        }
+        .img_deg {
+            width: 450px;
+            height: 400px;
+            object-fit: cover;
+            padding: 50px;
+        }
+        .title_column {
+            padding: 70px; 
+        }
+        /* .action_column {
+            padding: 5px; 
+        } */
     </style>
 </head>
 <body>
@@ -127,14 +148,15 @@
 
         <div class="table_container">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <table class="text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-center">
-                                Image
-                            </th>
+                            
                             <th scope="col" class="px-6 py-3 text-center">
                                 Title
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center">
+                                Image
                             </th>
                             <th scope="col" class="px-6 py-3 text-center">
                                 Description
@@ -148,17 +170,18 @@
                     <tbody>
                         @foreach ($data as $data)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                            <td class="px-6 py-4 title_column">
+                                {{$data->title}}
+                            </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <img class="img_deg" src="/postimage/{{$data->image}}" alt="{{$data->title}}">
                             </td>
-                            <td class="px-6 py-4">
-                                {{$data->title}}
-                            </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 description_column">
                                 {{$data->description}}
                             </td>
-                            <td class="px-6 py-4 text-right action_btns">
-                                <a onclick="return confirm('Are you sure to delete this?')" href="{{url('my_post_del',$data->id)}}" class="btn btn-danger">Delete</a>
+                            <td class="px-6 py-4 text-right action_column">
+                                <a href="#" onclick="confirmDelete('{{ url('my_post_del', $data->id) }}'); return false;" class="btn btn-danger">Delete</a>
                                 <a href="{{url('post_update_page',$data->id)}}" class="btn btn-primary">Update</a>
                             </td>
                         </tr>
@@ -176,16 +199,24 @@
     </div>
     <!-- copyright section end -->
 
-    <!-- Javascript files-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/plugin.js"></script>
-    <!-- sidebar -->
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/custom.js"></script>
-    <!-- javascript -->
-    <script src="js/owl.carousel.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <!-- SweetAlert Scripts -->
+    <script>
+        function confirmDelete(url) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+    </script>
 </body>
 </html>
