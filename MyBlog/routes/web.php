@@ -51,11 +51,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/approved_comments', [HomeController::class, 'approvedComments'])->name('approved_comments');
 
-     Route::get('admin/reviews', [ReviewController::class, 'manageReviews'])->name('admin.reviews');
+    Route::get('admin/reviews', [ReviewController::class, 'manageReviews'])->name('admin.reviews');
 
     Route::post('admin/review/{id}/approve', [ReviewController::class, 'approveReview']);
 
     Route::post('admin/review/{id}/reject', [ReviewController::class, 'rejectReview']);
+
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+
+    Route::get('/deleteuser/{id}', [AdminController::class, 'delete'])->name('deleteuser');
 });
 
 Route::get('/post_details/{id}', [HomeController::class,'post_details'])->name('post_details');

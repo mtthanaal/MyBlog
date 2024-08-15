@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -109,4 +110,17 @@ class AdminController extends Controller
     //     $review->save();
     //     return redirect()->back()->with('message', 'Review approved.');
     // }
+
+    public function users()
+    {
+        $data=user::all();
+        return view("admin.users",compact("data"));
+    }
+
+    public function delete($id)
+    {
+        $data=user::find($id);
+        $data->delete();
+        return redirect()->back();
+    }
 }
