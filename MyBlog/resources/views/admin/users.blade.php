@@ -1,53 +1,83 @@
 <!DOCTYPE html>
 <html>
-  <head> 
-    @include('admin.css')
-  </head>
-  <body>
-    @include('admin.header')
-    <div class="d-flex align-items-stretch">
-      <!-- Sidebar Navigation-->
-      @include('admin.sidebar')
-      <!-- Sidebar Navigation end-->
-      <div class="page-content">
-        <h1 class="title_deg">All Users</h1>
-
-        
-
-<div style="position: relative; top: 60px; right: -150px">
-    <table border="3px">
-            <tr>
-                <th style="padding: 30px">User Name</th>
-                <th style="padding: 50px">Email</th>
-                <th style="padding: 30px">Action</th>
-            </tr>
-
-
-            @foreach ($data as $data )
+<head>
+  @include('admin.css')
+  <style>
+      .container {
+          margin-top: 50px;
+      }
+      h1 {
+          text-align: center;
+          margin-bottom: 30px;
+      }
+      .table {
+          width: 100%;
+          margin-bottom: 20px;
+          border-collapse: collapse;
+          border: 2px solid #ddd; 
+      }
+      .table th, .table td {
+          padding: 15px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+      }
+      .table th {
+          border-top: 2px solid #ddd; 
+          border-left: 1px solid #ddd; 
+          border-right: 1px solid #ddd;
+      }
+      .table th:not(:last-child) {
+          border-right: 2px solid #ddd; 
+      }
+      .table td {
+          border-right: 1px solid #ddd; 
+      }
+      .table td:last-child {
+          border-right: none; 
+      }
+      .btn {
+          padding: 10px 20px;
+          border: none;
+          color: white;
+          cursor: pointer;
+      }
+      .btn-danger {
+          background-color: #dc3545;
+      }
+  </style>
+</head>
+<body>
+  @include('admin.header')
+  <div class="d-flex align-items-stretch">
+    <!-- Sidebar Navigation-->
+    @include('admin.sidebar')
+    <!-- Sidebar Navigation end-->
+    <div class="page-content container">
+      <h1 class="title_deg">All Users</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($data as $user)
             <tr align="center">
-                <td>{{$data->name}}</td>
-                <td>{{$data->email}}</td>
-
-
-                @if ($data->usertype=="user")
-                <td><a href="{{url('/deleteuser',$data->id)}}">Delete</a></td>
-                @else
-                <td><a>Not Allow</a></td>
-                @endif
-
-
+              <td>{{ $user->name }}</td>
+              <td>{{ $user->email }}</td>
+              @if ($user->usertype == "user")
+                <td><a href="{{ url('/deleteuser', $user->id) }}" class="btn btn-danger">Delete</a></td>
+              @else
+                <td>Not Allow</td>
+              @endif
             </tr>
-            @endforeach
-        
-    </table>
-</div>
-
-
-        
-
-      </div>
-      @include('admin.footer')
-
-      
-  </body>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+    @include('admin.footer')
+  </div>
+</body>
 </html>

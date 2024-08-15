@@ -9,7 +9,7 @@
     </div>
     <!-- Sidebar Navigation Menus--><span class="heading">Main</span>
     <ul class="list-unstyled">
-        <li class="active"><a href="{{route('home.homepage')}}"> <i class="icon-home"></i>Home </a></li>
+        <li class="active"><a href=""> <i class="icon-home"></i>Home </a></li>
 
         <li><a href="{{url('post_page')}}"> <i class="icon-grid"></i>Add Post </a></li>
 
@@ -19,22 +19,5 @@
         <li><a href="{{route('approved_comments')}}"> <i class="fas fa-pencil-alt"></i>Reviews</a></li>
 
         <li><a href="{{route('users')}}"> <i class="icon-grid"></i>Users </a></li>
-
-        <!-- Additional Menu Items -->
-        <!-- <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
-        <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
-            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
-            </ul>
-        </li>
-        <li><a href="login.html"> <i class="icon-logout"></i>Login page </a></li>
-    </ul>
-    <span class="heading">Extras</span>
-    <ul class="list-unstyled">
-        <li> <a href="#"> <i class="icon-settings"></i>Demo </a></li>
-        <li> <a href="#"> <i class="icon-writing-whiteboard"></i>Demo </a></li>
-        <li> <a href="#"> <i class="icon-chart"></i>Demo </a></li> -->
     </ul>
 </nav>
