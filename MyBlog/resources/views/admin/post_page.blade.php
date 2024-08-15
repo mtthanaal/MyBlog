@@ -54,7 +54,7 @@
       }
       .buttons {
         display: flex;
-        justify-content: center; /* Center the button */
+        justify-content: center; 
         margin-top: 20px;
       }
       .btn {
@@ -94,9 +94,9 @@
           <form action="{{ url('add_post') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <input class="title" type="text" name="title" placeholder="Title">
+            <input class="title" type="text" name="title" placeholder="Type your title..........">
 
-            <textarea class="description" id="editor" name="description" placeholder="Describe everything about this post here"></textarea>
+            <textarea class="description" id="editor" name="description" placeholder="Describe everything about this post here....................✍️"></textarea>
 
             <div class="file-input">
               <label>Add Image</label>
