@@ -3,6 +3,7 @@
 <head>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   @include('admin.css')
+  @vite('resources/css/app.css')
   <style>
     .table-padding td,
     .table-padding th {
@@ -12,6 +13,11 @@
       color: #007bff; 
       cursor: pointer;
       text-decoration: underline;
+    }
+    .img_deg {
+      width: 300px; 
+      height: 150px; 
+      object-fit: cover; 
     }
   </style>
 </head>
@@ -32,10 +38,10 @@
       <h1 class="title_deg">All Post</h1>
 
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table border="3px" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-padding">
+        <table border="3px" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-black-400 table-padding">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="px-6 py-3" style="width: 10%;text-align: justify;">Post Title</th>
+              <th scope="col" class="px-4 py-3" style="width: 10%;text-align: justify;">Post Title</th>
               <th scope="col" class="px-6 py-3" style="width: 20%;text-align: justify;">Post Description</th>
               <th scope="col" class="px-6 py-3" style="width: 8%;text-align: center;">Post By</th>
               <th scope="col" class="px-6 py-3" style="width: 10%;text-align: center;">Post Status</th>
@@ -50,7 +56,7 @@
           <tbody>
             @foreach ($post as $post)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                 {{$post->title}}
               </th>
               <td class="px-6 py-4 description-cell" style="width: 20%; text-align: justify;">
@@ -61,7 +67,7 @@
               <td class="px-6 py-4" style="width: 8%;text-align: center;">{{$post->name}}</td>
               <td class="px-6 py-4" style="width: 10%;text-align: center;">{{$post->post_status}}</td>
               <td class="px-6 py-4" style="width: 8%; text-align: center;">{{$post->usertype}}</td>
-              <td>
+              <td class="px-6 py-4">
                 <img class="img_deg" src="postimage/{{$post->image}}">
               </td>
               <td class="px-6 py-4 text-center" style="width: 7%;">
