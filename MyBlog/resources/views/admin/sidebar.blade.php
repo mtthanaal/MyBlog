@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <li><a href="{{route('approved_comments')}}"> <i class="fas fa-pencil-alt"></i>Reviews</a></li>
 
-        <li><a href="{{route('users')}}"> <i class="icon-grid"></i>Users </a></li>
+        <li><a href="{{route('users')}}"> <i class="fas fa-users"></i>Users </a></li>
+
     </ul>
 </nav>
