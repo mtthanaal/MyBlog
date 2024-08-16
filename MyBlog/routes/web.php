@@ -60,6 +60,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [AdminController::class, 'users'])->name('users');
 
     Route::get('/deleteuser/{id}', [AdminController::class, 'delete'])->name('deleteuser');
+
+    Route::put('/update_review/{review}', [HomeController::class, 'update'])->name('update_review');
+    Route::delete('/delete_review/{review}', [HomeController::class, 'destroy'])->name('delete_review');
+    Route::post('/submit_review', [HomeController::class, 'store'])->name('submit_review');
+
+
+    Route::post('/submit_reply', [HomeController::class, 'store'])->name('submit_reply');
 });
 
 Route::get('/post_details/{id}', [HomeController::class,'post_details'])->name('post_details');

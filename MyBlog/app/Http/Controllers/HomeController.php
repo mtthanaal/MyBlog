@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use Alert;
 use App\Models\Review;
+use App\Models\Reply;
+
+
 
 class HomeController extends Controller
 {
@@ -140,4 +143,42 @@ class HomeController extends Controller
         $reviews = Review::get();
         return view('home.approved_comments', compact('reviews'));
     }
+
+        public function update(Request $request, Review $review)
+    {
+        $request->validate([
+            'comment' => 'required|string',
+        ]);
+
+        $review->update([
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->back()->with('success', 'Review updated successfully.');
+    }
+
+    public function destroy(Review $review)
+    {
+        $review->delete();
+
+        return redirect()->back()->with('success', 'Review deleted successfully.');
+    }
+
+        public function store(Request $request)
+    {
+        $request->validate([
+            'review_id' => 'required|exists:reviews,id',
+            'reply' => 'required|string',
+        ]);
+
+        Reply::create([
+            'review_id' => $request->review_id,
+            'reply' => $request->reply,
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->back()->with('success', 'Reply submitted successfully.');
+    }
+
+
 }
