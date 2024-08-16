@@ -9,7 +9,7 @@
     </div>
     <!-- Sidebar Navigation Menus--><span class="heading">Main</span>
     <ul class="list-unstyled">
-        <li class="active"><a href=""> <i class="icon-home"></i>Home </a></li>
+        <li class="active"><a href="{{route('home.homepage')}}"> <i class="icon-home"></i>Home </a></li>
 
         <li><a href="{{url('post_page')}}"> <i class="icon-grid"></i>Add Post </a></li>
 

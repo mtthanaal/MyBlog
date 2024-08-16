@@ -2,49 +2,7 @@
 <html>
 <head>
   @include('admin.css')
-  <style>
-      .container {
-          margin-top: 50px;
-      }
-      h1 {
-          text-align: center;
-          margin-bottom: 30px;
-      }
-      .table {
-          width: 100%;
-          margin-bottom: 20px;
-          border-collapse: collapse;
-          border: 2px solid #ddd; 
-      }
-      .table th, .table td {
-          padding: 15px;
-          text-align: left;
-          border-bottom: 1px solid #ddd;
-      }
-      .table th {
-          border-top: 2px solid #ddd; 
-          border-left: 1px solid #ddd; 
-          border-right: 1px solid #ddd;
-      }
-      .table th:not(:last-child) {
-          border-right: 2px solid #ddd; 
-      }
-      .table td {
-          border-right: 1px solid #ddd; 
-      }
-      .table td:last-child {
-          border-right: none; 
-      }
-      .btn {
-          padding: 10px 20px;
-          border: none;
-          color: white;
-          cursor: pointer;
-      }
-      .btn-danger {
-          background-color: #dc3545;
-      }
-  </style>
+  @vite('resources/css/app.css')
   <!-- SweetAlert2 CDN -->
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -55,32 +13,34 @@
     <!-- Sidebar Navigation-->
     @include('admin.sidebar')
     <!-- Sidebar Navigation end-->
-    <div class="page-content container">
-      <h1 class="title_deg">All Users</h1>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($data as $user)
-            <tr align="center">
-              <td>{{ $user->name }}</td>
-              <td>{{ $user->email }}</td>
-              @if ($user->usertype == "user")
-                <td>
-                  <button class="btn btn-danger" onclick="confirmDelete('{{ url('/deleteuser', $user->id) }}')">Delete</button>
-                </td>
-              @else
-                <td>Not Allow</td>
-              @endif
+    <div class="page-content container mt-12">
+      <h1 class="text-center text-2xl font-bold mb-8">All Users</h1>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">User Name</th>
+              <th scope="col" class="px-6 py-3">Email</th>
+              <th scope="col" class="px-6 py-3">Action</th>
             </tr>
-          @endforeach
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            @foreach ($data as $user)
+              <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <td class="px-6 py-4">{{ $user->name }}</td>
+                <td class="px-6 py-4">{{ $user->email }}</td>
+                @if ($user->usertype == "user")
+                  <td class="px-6 py-4 text-center">
+                    <button class="btn btn-danger" onclick="confirmDelete('{{ url('/deleteuser', $user->id) }}')">Delete</button>
+                  </td>
+                @else
+                  <td class="px-6 py-4 text-center">Not Allow</td>
+                @endif
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
     @include('admin.footer')
   </div>

@@ -41,7 +41,7 @@
         <table border="3px" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-black-400 table-padding">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="px-4 py-3" style="width: 10%;text-align: justify;">Post Title</th>
+              <th scope="col" class="px-4 py-3" style="width: 7%;text-align: justify;">Post Title</th>
               <th scope="col" class="px-6 py-3" style="width: 20%;text-align: justify;">Post Description</th>
               <th scope="col" class="px-6 py-3" style="width: 8%;text-align: center;">Post By</th>
               <th scope="col" class="px-6 py-3" style="width: 10%;text-align: center;">Post Status</th>
@@ -56,7 +56,7 @@
           <tbody>
             @foreach ($post as $post)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
+              <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black" style="width: 2px">
                 {{$post->title}}
               </th>
               <td class="px-6 py-4 description-cell" style="width: 20%; text-align: justify;">
@@ -71,16 +71,16 @@
                 <img class="img_deg" src="postimage/{{$post->image}}">
               </td>
               <td class="px-6 py-4 text-center" style="width: 7%;">
-                <a href="{{url('delete_post',$post->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="confirmation(event)">Delete</a>
+                <a href="{{url('delete_post',$post->id)}}" class="btn btn-danger" onclick="confirmation(event)">Delete</a>
               </td>
               <td class="px-6 py-4 text-center" style="width: 7%;">
-                <a href="{{url('edit_page',$post->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                <a href="{{url('edit_page',$post->id)}}" class="btn btn-info">Edit</a>
               </td>
               <td class="px-6 py-4 text-center" style="width: 7%;">
-                <a onclick="return confirm('Are you sure to accept this post ?')" href="{{url('accept_post',$post->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Accept</a>
+                <a onclick="return confirm('Are you sure to accept this post ?')" href="{{url('accept_post',$post->id)}}" class="btn btn-success">Accept</a>
               </td>
               <td class="px-6 py-4 text-center" style="width: 7%;">
-                <a onclick="return confirm('Are you sure to reject this post ?')" href="{{url('reject_post',$post->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Reject</a>
+                <a onclick="return confirm('Are you sure to reject this post ?')" href="{{url('reject_post',$post->id)}}" class="btn btn-info">Reject</a>
               </td>
             </tr>
             @endforeach
