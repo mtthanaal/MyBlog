@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use Alert;
 use App\Models\Review;
-use App\Models\Reply;
+// use App\Models\Reply;
 
 
 
@@ -119,25 +119,7 @@ class HomeController extends Controller
         return redirect()->back()->with('message','Post Updated Successfully');
     }
 
-    public function store_review(Request $request)
-    {
-        $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'required|string|max:255',
-            'post_id' => 'required|integer|exists:posts,id',
-        ]);
-
-        $review = new Review;
-        $review->post_id = $request->post_id; 
-        $review->user_name = Auth::user()->name;
-        $review->rating = $request->rating;
-        $review->comment = $request->comment;
-        $review->approved = false; 
-        $review->save();
-
-        return back()->with('success', 'Review submitted successfully and is awaiting approval!');
-    }
-
+    
     public function approvedComments()
     {
         $reviews = Review::get();
@@ -164,21 +146,34 @@ class HomeController extends Controller
         return redirect()->back()->with('success', 'Review deleted successfully.');
     }
 
-        public function store(Request $request)
+
+
+    public function store(Request $request)
     {
         $request->validate([
-            'review_id' => 'required|exists:reviews,id',
-            'reply' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|max:255',
+            'post_id' => 'required|integer|exists:posts,id',
+            // 'review_id' => 'required|exists:reviews,id',
+            // 'reply' => 'required|string',
         ]);
 
-        Reply::create([
-            'review_id' => $request->review_id,
-            'reply' => $request->reply,
-            'user_id' => auth()->id(),
-        ]);
+        $review = new Review;
+        $review->post_id = $request->post_id; 
+        $review->user_name = Auth::user()->name;
+        $review->rating = $request->rating;
+        $review->comment = $request->comment;
+        $review->approved = false; 
+        $review->save();
 
-        return redirect()->back()->with('success', 'Reply submitted successfully.');
+    //     Reply::create([
+    //         'review_id' => $request->review_id,
+    //         'reply' => $request->reply,
+    //         'user_id' => auth()->id(),
+    //     ]);
+
+        return back()->with('success', 'Review submitted successfully and is awaiting approval!');
     }
-
+    
 
 }
