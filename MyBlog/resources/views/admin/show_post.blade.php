@@ -19,6 +19,19 @@
       height: 150px; 
       object-fit: cover; 
     }
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
@@ -91,6 +104,8 @@
     </div>
     @include('admin.footer')
 
+    <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
+
     <script type="text/javascript">
       function toggleDescription(event) {
         event.preventDefault();
@@ -128,6 +143,20 @@
           }
         });
       }
+
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Show or hide the "Back to Top" button based on scroll position
+      window.addEventListener('scroll', function() {
+        var button = document.querySelector('.back-to-top');
+        if (window.scrollY > 300) {
+          button.style.display = 'block';
+        } else {
+          button.style.display = 'none';
+        }
+      });
     </script>
   </body>
 </html>
