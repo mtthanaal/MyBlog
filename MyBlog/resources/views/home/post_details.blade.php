@@ -4,6 +4,45 @@
       <!-- Basic -->
       <base href="/public">
       @include('home.homecss')
+
+      <style>
+         /* CSS for Back to Top Button */
+         #back-to-top {
+            display: inline-block;
+            background-color: #FF9800;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            transition: background-color .3s, opacity .5s, visibility .5s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+         }
+         #back-to-top::after {
+            content: "\f077";
+            font-family: FontAwesome;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 2em;
+            line-height: 50px;
+            color: #fff;
+         }
+         #back-to-top:hover {
+            cursor: pointer;
+            background-color: #333;
+         }
+         #back-to-top:active {
+            background-color: #555;
+         }
+         #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+         }
+      </style>
    </head>
 
    <body>
@@ -115,6 +154,9 @@
       </div>
       <!-- Copyright section end -->
 
+      <!-- Back to Top Button -->
+      <div id="back-to-top"></div>
+
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
@@ -128,7 +170,7 @@
       <script src="js/owl.carousel.js"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
-      <!-- Custom JavaScript for Zoom Out Effect -->
+      <!-- Custom JavaScript -->
       <script>
          document.getElementById('postImage').addEventListener('click', function () {
             this.classList.toggle('zoom-out');
@@ -149,6 +191,21 @@
                document.getElementById('edit-form-' + reviewId).style.display = 'block';
                document.getElementById('reply-form-' + reviewId).style.display = 'none';
             });
+         });
+
+         // Show Back to Top button when scrolled down
+         window.addEventListener('scroll', function() {
+            const button = document.getElementById('back-to-top');
+            if (window.scrollY > 300) {
+               button.classList.add('show');
+            } else {
+               button.classList.remove('show');
+            }
+         });
+
+         // Scroll to top on button click
+         document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
          });
       </script>
    </body>

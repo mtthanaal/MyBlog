@@ -132,6 +132,43 @@
         /* .action_column {
             padding: 5px; 
         } */
+
+        /* CSS styles for the Back to Top button */
+        #button {
+            display: inline-block;
+            background-color: #FF9800;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            transition: background-color .3s, opacity .5s, visibility .5s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        #button::after {
+            content: "\f077";
+            font-family: FontAwesome;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 2em;
+            line-height: 50px;
+            color: #fff;
+        }
+        #button:hover {
+            cursor: pointer;
+            background-color: #333;
+        }
+        #button:active {
+            background-color: #555;
+        }
+        #button.show {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body>
@@ -151,7 +188,6 @@
                 <table class="text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            
                             <th scope="col" class="px-6 py-3 text-center">
                                 Title
                             </th>
@@ -162,15 +198,13 @@
                                 Description
                             </th>
                             <th scope="col" class="px-6 py-3 text-center">
-                              Actions
-                           </th>
-
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data as $data)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-
                             <td class="px-6 py-4 title_column">
                                 {{$data->title}}
                             </td>
@@ -199,6 +233,9 @@
     </div>
     <!-- copyright section end -->
 
+    <!-- Back to Top Button -->
+    <div id="button"></div>
+
     <!-- SweetAlert Scripts -->
     <script>
         function confirmDelete(url) {
@@ -217,6 +254,21 @@
                 }
             });
         }
+
+        // Show button when scrolled down
+        window.addEventListener('scroll', function() {
+            const button = document.getElementById('button');
+            if (window.scrollY > 300) {
+                button.classList.add('show');
+            } else {
+                button.classList.remove('show');
+            }
+        });
+
+        // Scroll to top on button click
+        document.getElementById('button').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>

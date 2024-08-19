@@ -23,7 +23,7 @@
                  @auth
                      <li><a href="{{url('my_post')}}">My Post</a></li>
                      <li><a href="{{url('create_post')}}">Create Post</a></li>
-                     <li><a href="{{url('ProfileUpdateRequest')}}">Profile</a></li>
+                     <!-- <li><a href="{{url('ProfileUpdateRequest')}}">Profile</a></li> -->
                      <!-- <li><a href="{{route('approved_comments')}}">Approved Comments</a></li> -->
                      <li>
                         <form method="POST" action="{{ route('logout') }}">
