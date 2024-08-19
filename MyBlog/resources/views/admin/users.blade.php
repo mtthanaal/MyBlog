@@ -32,9 +32,10 @@
                 @if ($user->usertype == "user")
                   <td class="px-6 py-4 text-center">
                     <button class="btn btn-danger" onclick="confirmDelete('{{ url('/deleteuser', $user->id) }}')">Delete</button>
+                    <button class="btn btn-info" onclick="window.location.href='{{ url('/changeEmail', $user->id) }}'">Change Email</button>
                   </td>
                 @else
-                  <td class="px-6 py-4 text-center">Not Allow</td>
+                  <td class="px-6 py-4 text-center">Not Allowed</td>
                 @endif
               </tr>
             @endforeach

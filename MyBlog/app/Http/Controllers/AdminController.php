@@ -123,4 +123,31 @@ class AdminController extends Controller
         $data->delete();
         return redirect()->back();
     }
+
+    public function showChangeEmailForm($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        return view('admin.changeEmail', compact('user'));
+    }
+
+    public function changeEmail(Request $request, $id)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $id,
+        ]);
+
+        $user = User::find($id);
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        $user->email = $request->input('email');
+        $user->save();
+
+        return redirect()->route('admin.users')->with('success', 'Email updated successfully.');
+    }
 }

@@ -67,6 +67,8 @@ Route::middleware('auth')->group(function () {
 
 
     // Route::post('/submit_reply', [HomeController::class, 'store'])->name('submit_reply');
+    Route::get('/changeEmail/{id}', [AdminController::class, 'showChangeEmailForm'])->name('changeEmail');
+    Route::post('/changeEmail/{id}', [AdminController::class, 'changeEmail'])->name('changeEmail.submit');
 });
 
 Route::get('/post_details/{id}', [HomeController::class,'post_details'])->name('post_details');
