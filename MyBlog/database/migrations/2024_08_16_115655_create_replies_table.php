@@ -10,15 +10,16 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-{
-    Schema::create('replies', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('review_id')->constrained()->onDelete('cascade');
-        $table->text('reply');
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('replies', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('review_id')->constrained()->onDelete('cascade');
+            $table->text('reply');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+        });
+    }
+    
 
 
     /**

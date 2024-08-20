@@ -1,15 +1,13 @@
 <?php
 
-// namespace App\Models;
+namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-// class Reply extends Model
-// {
-//     protected $fillable = ['review_id', 'reply', 'user_id'];
+class Reply extends Model
+{
+    use HasFactory;
 
-//     public function review()
-//     {
-//         return $this->belongsTo(Review::class);
-//     }
-// }
+    protected $fillable = ['review_id', 'reply', 'user_id'];
+}

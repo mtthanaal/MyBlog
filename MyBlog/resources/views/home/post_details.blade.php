@@ -94,51 +94,65 @@
          </form>
 
          <div class="review-display">
-            <h4>Reviews:</h4>
-            @foreach ($reviews as $review)
-               @if ($review->status === 'approved')
-                  <div class="review">
-                     <h5>{{ $review->user_name }}</h5>
-                     <div class="rating">
-                        @for ($i = 0; $i < $review->rating; $i++)
+    <h4>Reviews:</h4>
+    @forelse ($reviews as $review)
+        @if ($review->approved)
+            <div class="review">
+                <h5>{{ $review->user_name }}</h5>
+                <div class="rating">
+                    @for ($i = 0; $i < $review->rating; $i++)
                         ★
-                        @endfor
-                     </div>
-                     <p>{{ $review->comment }}</p>
-                     <!-- Reply, Edit, Delete Options -->
-                     <div class="review-actions">
-                        <button class="reply-btn" data-review-id="{{ $review->id }}">Reply</button>
-                        <button class="edit-btn" data-review-id="{{ $review->id }}">Edit</button>
-                        <form action="{{ route('delete_review', $review->id) }}" method="POST" style="display:inline;">
-                           @csrf
-                           @method('DELETE')
-                           <button type="submit" class="delete-btn">Delete</button>
-                        </form>
-                     </div>
+                    @endfor
+                </div>
+                <p>{{ $review->comment }}</p>
+                <div class="review-actions">
+                    <button class="reply-btn" data-review-id="{{ $review->id }}">Reply</button>
+                    <button class="edit-btn" data-review-id="{{ $review->id }}">Edit</button>
+                    <form action="{{ route('delete_review', $review->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </div>
 
-                     <!-- Reply Form -->
-                     <div class="reply-form" id="reply-form-{{ $review->id }}" style="display:none;">
-                        <form action="{{ route('submit_reply') }}" method="POST">
-                           @csrf
-                           <input type="hidden" name="review_id" value="{{ $review->id }}">
-                           <textarea name="reply" rows="2" placeholder="Your reply here..."></textarea>
-                           <input type="submit" value="Submit Reply">
-                        </form>
-                     </div>
+                <!-- Reply Form -->
+                <div class="reply-form" id="reply-form-{{ $review->id }}" style="display:none;">
+                    <form action="{{ route('submit_reply') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="review_id" value="{{ $review->id }}">
+                        <textarea name="reply" rows="2" placeholder="Your reply here..."></textarea>
+                        <input type="submit" value="Submit Reply">
+                    </form>
+                </div>
 
-                     <!-- Edit Form -->
-                     <div class="edit-form" id="edit-form-{{ $review->id }}" style="display:none;">
-                        <form action="{{ route('update_review', $review->id) }}" method="POST">
-                           @csrf
-                           @method('PUT')
-                           <textarea name="comment" rows="4">{{ $review->comment }}</textarea>
-                           <input type="submit" value="Update Comment">
-                        </form>
-                     </div>
-                  </div>
-               @endif
-            @endforeach
-         </div>
+                <!-- Edit Form -->
+                <div class="edit-form" id="edit-form-{{ $review->id }}" style="display:none;">
+                    <form action="{{ route('update_review', $review->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <textarea name="comment" rows="4">{{ $review->comment }}</textarea>
+                        <input type="submit" value="Update Comment">
+                    </form>
+                </div>
+
+                <!-- Display Replies -->
+                <div class="replies">
+                    @foreach ($review->replies as $reply)
+                        <div class="reply">
+                            <p>{{ $reply->reply }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+    @empty
+        <p>No reviews yet.</p>
+    @endforelse
+</div>
+
+
+
+
 
       </div>
 

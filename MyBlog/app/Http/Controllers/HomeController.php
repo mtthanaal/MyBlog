@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use Alert;
 use App\Models\Review;
-// use App\Models\Reply;
-
-
+use App\Models\Reply;
 
 class HomeController extends Controller
 {
@@ -46,12 +44,14 @@ class HomeController extends Controller
         return view('home.homepage', compact('post'));
     }
 
-    public function post_details($id)
-    {
+    public function post_details($id) {
         $post = Post::findOrFail($id);
-        $reviews = Review::where('post_id', $id)->where('approved', true)->get();
+        $reviews = $post->reviews()->where('approved', true)->get(); 
+    
         return view('home.post_details', compact('post', 'reviews'));
-    }
+        
+}
+
 
     public function create_post()
     {
@@ -119,43 +119,38 @@ class HomeController extends Controller
         return redirect()->back()->with('message','Post Updated Successfully');
     }
 
-    
     public function approvedComments()
     {
         $reviews = Review::get();
         return view('home.approved_comments', compact('reviews'));
     }
 
-        public function update(Request $request, Review $review)
-    {
-        $request->validate([
-            'comment' => 'required|string',
-        ]);
+    public function updateReview(Request $request, Review $review)
+{
+    $request->validate([
+        'comment' => 'required|string',
+    ]);
 
-        $review->update([
-            'comment' => $request->comment,
-        ]);
+    $review->update([
+        'comment' => $request->comment,
+    ]);
 
-        return redirect()->back()->with('success', 'Review updated successfully.');
-    }
+    return redirect()->back()->with('success', 'Review updated successfully.');
+}
 
-    public function destroy(Review $review)
+    public function destroyReview(Review $review)
     {
         $review->delete();
 
         return redirect()->back()->with('success', 'Review deleted successfully.');
     }
 
-
-
-    public function store(Request $request)
+    public function store_review(Request $request)
     {
         $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'required|string|max:255',
             'post_id' => 'required|integer|exists:posts,id',
-            'review_id' => 'required|exists:reviews,id',
-            'reply' => 'required|string',
         ]);
 
         $review = new Review;
@@ -166,14 +161,23 @@ class HomeController extends Controller
         $review->approved = false; 
         $review->save();
 
-    //     Reply::create([
-    //         'review_id' => $request->review_id,
-    //         'reply' => $request->reply,
-    //         'user_id' => auth()->id(),
-    //     ]);
-
         return back()->with('success', 'Review submitted successfully and is awaiting approval!');
     }
-    
+
+    public function store_reply(Request $request)
+{
+    $request->validate([
+        'review_id' => 'required|exists:reviews,id',
+        'reply' => 'required|string',
+    ]);
+
+    Reply::create([
+        'review_id' => $request->review_id,
+        'reply' => $request->reply,
+        'user_id' => auth()->id(),
+    ]);
+
+    return back()->with('success', 'Reply submitted successfully!');
+}
 
 }

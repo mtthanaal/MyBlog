@@ -10,15 +10,17 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->text('comment'); 
             $table->unsignedBigInteger('post_id');
             $table->string('user_name');
             $table->integer('rating');
             $table->text('comment');
             $table->boolean('approved')->default(false);
             $table->timestamps();
-
+        
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
+        
     }
 
     public function down()

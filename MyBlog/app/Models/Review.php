@@ -10,10 +10,13 @@ class Review extends Model
     use HasFactory;
 
     protected $fillable = [
-        'post_id',
-        'user_name',
-        'rating',
-        'comment',
-        'approved',
+        'comment', 
     ];
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 }
+
+
