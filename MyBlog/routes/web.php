@@ -61,15 +61,19 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/deleteuser/{id}', [AdminController::class, 'delete'])->name('deleteuser');
 
-    // Route::put('/update_review/{review}', [HomeController::class, 'update'])->name('update_review');
-    // Route::delete('/delete_review/{review}', [HomeController::class, 'destroy'])->name('delete_review');
-    // Route::post('/submit_review', [HomeController::class, 'store'])->name('submit_review');
+    Route::put('/update_review/{review}', [HomeController::class, 'update'])->name('update_review');
+    Route::delete('/delete_review/{review}', [HomeController::class, 'destroy'])->name('delete_review');
+    Route::post('/submit_review', [HomeController::class, 'store'])->name('submit_review');
+    Route::post('/submit_reply', [HomeController::class, 'store'])->name('submit_reply');
 
 
-    // Route::post('/submit_reply', [HomeController::class, 'store'])->name('submit_reply');
+
     Route::get('/changeEmail/{id}', [AdminController::class, 'showChangeEmailForm'])->name('changeEmail');
     Route::post('/changeEmail/{id}', [AdminController::class, 'changeEmail'])->name('changeEmail.submit');
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+
+    Route::get('/changeName/{id}', [AdminController::class, 'showChangeNameForm'])->name('changeName');
+    Route::post('/updateName/{id}', [AdminController::class, 'updateName'])->name('updateName');
 });
 
 Route::get('/post_details/{id}', [HomeController::class,'post_details'])->name('post_details');

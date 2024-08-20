@@ -21,7 +21,7 @@
             <tr>
               <th scope="col" class="px-6 py-3">User Name</th>
               <th scope="col" class="px-6 py-3">Email</th>
-              <th scope="col" class="px-6 py-3">Action</th>
+              <th scope="col" class="px-6 py-3 text-center">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -33,6 +33,7 @@
                   <td class="px-6 py-4 text-center">
                     <button class="btn btn-danger" onclick="confirmDelete('{{ url('/deleteuser', $user->id) }}')">Delete</button>
                     <button class="btn btn-info" onclick="window.location.href='{{ url('/changeEmail', $user->id) }}'">Change Email</button>
+                    <button class="btn btn-warning" onclick="window.location.href='{{ url('/changeName', $user->id) }}'">Change Name</button>
                   </td>
                 @else
                   <td class="px-6 py-4 text-center">Not Allowed</td>

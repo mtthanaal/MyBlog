@@ -150,4 +150,23 @@ class AdminController extends Controller
 
         return redirect()->route('admin.users')->with('success', 'Email updated successfully.');
     }
+
+    public function showChangeNameForm($id)
+    {
+        $user = User::find($id);
+        return view('admin.changeName', compact('user'));
+    }
+
+    public function updateName(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->save();
+
+        return redirect()->route('admin.users')->with('success', 'Name updated successfully');
+    }
 }
