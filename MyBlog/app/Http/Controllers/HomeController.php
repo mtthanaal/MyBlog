@@ -154,8 +154,8 @@ class HomeController extends Controller
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'required|string|max:255',
             'post_id' => 'required|integer|exists:posts,id',
-            // 'review_id' => 'required|exists:reviews,id',
-            // 'reply' => 'required|string',
+            'review_id' => 'required|exists:reviews,id',
+            'reply' => 'required|string',
         ]);
 
         $review = new Review;
