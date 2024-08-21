@@ -212,6 +212,8 @@
                         </div>
                         <p>{{ $review->comment }}</p>
                         <div class="review-actions">
+
+                        @if ($post->user_id == @auth()->user()->id)
                             <button class="reply-btn" data-review-id="{{ $review->id }}">Reply</button>
                             <button class="edit-btn" data-review-id="{{ $review->id }}">Edit</button>
                             <form action="{{ route('delete_review', $review->id) }}" method="POST" style="display:inline;">
@@ -219,6 +221,7 @@
                                 @method('DELETE')
                                 <button type="submit" class="delete-btn">Delete</button>
                             </form>
+                        @endif
                         </div>
 
                         <!-- Reply Form -->
