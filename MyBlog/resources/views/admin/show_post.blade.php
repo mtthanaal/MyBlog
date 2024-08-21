@@ -32,6 +32,17 @@
       display: none;
       z-index: 1000;
     }
+    .search-bar {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .search-input {
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      width: 300px;
+    }
   </style>
 </head>
 <body>
@@ -50,8 +61,13 @@
 
       <h1 class="title_deg">All Post</h1>
 
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search...." onkeyup="searchTable()">
+      </div>
+
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table border="3px" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-black-400 table-padding">
+        <table border="3px" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-black-400 table-padding" id="postTable">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" class="px-4 py-3" style="width: 7%;text-align: justify;">Post Title</th>
@@ -69,9 +85,9 @@
           <tbody>
             @foreach ($post as $post)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black" style="width: 2px">
+              <td class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black" style="width: 2px">
                 {{$post->title}}
-              </th>
+              </td>
               <td class="px-6 py-4 description-cell" style="width: 20%; text-align: justify;">
                 <span class="description-preview">{{ Str::limit($post->description, 100) }}</span>
                 <span class="description-full" style="display:none;">{{$post->description}}</span>
@@ -157,6 +173,28 @@
           button.style.display = 'none';
         }
       });
+
+      // Function to filter table rows based on search input
+      function searchTable() {
+        var input = document.getElementById('searchInput');
+        var filter = input.value.toLowerCase();
+        var table = document.getElementById('postTable');
+        var trs = table.getElementsByTagName('tr');
+
+        for (var i = 1; i < trs.length; i++) {
+          var tds = trs[i].getElementsByTagName('td');
+          var found = false;
+
+          for (var j = 0; j < tds.length; j++) {
+            if (tds[j].textContent.toLowerCase().indexOf(filter) > -1) {
+              found = true;
+              break;
+            }
+          }
+
+          trs[i].style.display = found ? '' : 'none';
+        }
+      }
     </script>
   </body>
 </html>

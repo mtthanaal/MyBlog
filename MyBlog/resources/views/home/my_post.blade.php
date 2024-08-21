@@ -129,10 +129,6 @@
         .title_column {
             padding: 70px; 
         }
-        /* .action_column {
-            padding: 5px; 
-        } */
-
         /* CSS styles for the Back to Top button */
         #button {
             display: inline-block;
@@ -169,6 +165,18 @@
             opacity: 1;
             visibility: visible;
         }
+
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .search-input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 300px;
+        }
     </style>
 </head>
 <body>
@@ -184,8 +192,12 @@
         @endif
 
         <div class="table_container">
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search...." onkeyup="searchTable()">
+            </div>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="text-gray-500 dark:text-gray-400">
+                <table id="postTable" class="text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-center">
@@ -269,6 +281,28 @@
         document.getElementById('button').addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // Function to filter table rows based on search input
+        function searchTable() {
+            var input = document.getElementById('searchInput');
+            var filter = input.value.toLowerCase();
+            var table = document.getElementById('postTable');
+            var trs = table.getElementsByTagName('tr');
+
+            for (var i = 1; i < trs.length; i++) {
+                var tds = trs[i].getElementsByTagName('td');
+                var found = false;
+
+                for (var j = 0; j < tds.length; j++) {
+                    if (tds[j].textContent.toLowerCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                trs[i].style.display = found ? '' : 'none';
+            }
+        }
     </script>
 </body>
 </html>
