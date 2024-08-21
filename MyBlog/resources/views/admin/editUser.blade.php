@@ -14,8 +14,8 @@
   <div class="d-flex align-items-stretch">
     @include('admin.sidebar')
 
-    <main class="page-content container mt-11">
-      <h1 class="text-center text-2xl font-bold mb-8">Edit User</h1>
+    <main class="page-content container mt-full">
+      <h1 class="text-center text-white text-2xl font-bold mb-8">Edit User</h1>
       <div class="max-w-3xl mx-auto bg-white p-12 rounded-lg shadow-lg">
         <form action="{{ route('updateUser', $user->id) }}" method="POST">
           @csrf

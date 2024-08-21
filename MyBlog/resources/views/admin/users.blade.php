@@ -10,8 +10,8 @@
   @include('admin.header')
   <div class="d-flex align-items-stretch">
     @include('admin.sidebar')
-    <div class="page-content container mt-12">
-      <h1 class="text-center text-2xl font-bold mb-8">All Users</h1>
+    <div class="page-content container mt-full">
+      <h1 class="text-center text-white text-2xl font-bold mb-8">All Users</h1>
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
