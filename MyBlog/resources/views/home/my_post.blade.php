@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Str;
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,6 +125,10 @@
             text-overflow: ellipsis;
             text-align: justify;
         }
+        .read-more-link {
+            color: #2563eb;
+            text-decoration: underline;
+        }
         .img_deg {
             width: 450px;
             height: 400px;
@@ -229,8 +237,11 @@
                                     <img class="img_deg" src="/postimage/{{$item->image}}" alt="{{$item->title}}">
                                 </td>
                                 <td class="px-6 py-4 description_column">
-                                    {!!$item->description!!}
+                                    <span id="description_{{$item->id}}" class="description-text">{{ Str::limit(strip_tags($item->description), 250) }}</span>
+                                    <a href="{{ url('post_details', $item->id) }}" class="read-more-link">Read More</a>
                                 </td>
+
+
                                 <td class="px-6 py-4 text-right action_column">
                                     <a href="#" onclick="confirmDelete('{{ url('my_post_del', $item->id) }}'); return false;" class="btn btn-danger">Delete</a>
                                     <a href="{{url('post_update_page',$item->id)}}" class="btn btn-primary">Update</a>
