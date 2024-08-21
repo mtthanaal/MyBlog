@@ -112,7 +112,8 @@
 
         .description_text {
             font-size: 16px;
-            line-height: 1.5;
+            line-height: 2;
+            padding: 20px;
         }
 
         .description_line {
@@ -122,7 +123,7 @@
 
         .video_section iframe {
             max-width: 100%;
-            height: auto;
+            height: 600px;
         }
         /* Submit Button Styles */
          .submit-btn {
@@ -148,6 +149,30 @@
             background-color: #388e3c; /* Even darker green */
             transform: scale(1.02);
          }
+         .image-container {
+            display: flex;
+            justify-content: center; /* Centers the image horizontally */
+            align-items: center; /* Centers the image vertically if container has a height */
+            height: 100vh; /* Adjust as needed or set a specific height */
+        }
+
+        #postImage {
+            max-width: 70%; /* Ensures image scales down within container */
+            max-height: 70vh; /* Adjust the height as needed */
+            padding: 10px;
+            cursor: pointer;
+        }
+        .post-title {
+            font-size: 2.5rem; /* Adjust size as needed */
+            font-weight: bold;
+            color: #333; /* Choose a color that fits your design */
+            text-align: center; /* Center-aligns the title */
+            margin: 20px 0; /* Adjusts the space above and below the title */
+            line-height: 1.3; /* Adjusts the line height for better readability */
+            font-family: 'Arial', sans-serif; /* Or use a different font-family if preferred */
+        }
+
+
 
     </style>
 </head>
@@ -160,10 +185,12 @@
 
     <!-- Post Details section -->
     <div style="text-align: center;" class="col-md-12">
-        <h3><b>{{$post->title}}</b></h3>
-        <div>
-            <img id="postImage" style="padding: 20px; cursor: pointer;" src="/postimage/{{$post->image}}" class="services_img">
+    <h3 class="post-title">{{$post->title}}</h3>
+
+        <div class="image-container">
+            <img id="postImage" src="/postimage/{{$post->image}}" class="services_img">
         </div>
+
         <h4 class="description_text">{!!$post->description!!}</h4>
         <div class="description_line"></div>
         <p>Post by <b>{{$post->name}}</b></p>
@@ -171,7 +198,7 @@
 
     <div class="video_section">
         <h4>Watch This Blog's Video:</h4>
-        <iframe width="853" height="480" src="https://www.youtube.com/embed/q0mbKsKG-ng" title="Sri Lanka - Heart of the Indian Ocean" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="900" height="600" src="https://www.youtube.com/embed/q0mbKsKG-ng" title="Sri Lanka - Heart of the Indian Ocean" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 
     <!-- Review section -->
