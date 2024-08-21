@@ -3,16 +3,13 @@
 <head>
   @include('admin.css')
   @vite('resources/css/app.css')
-  <!-- SweetAlert2 CDN -->
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   @include('admin.header')
   <div class="d-flex align-items-stretch">
-    <!-- Sidebar Navigation-->
     @include('admin.sidebar')
-    <!-- Sidebar Navigation end-->
     <div class="page-content container mt-12">
       <h1 class="text-center text-2xl font-bold mb-8">All Users</h1>
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -32,8 +29,7 @@
                 @if ($user->usertype == "user")
                   <td class="px-6 py-4 text-center">
                     <button class="btn btn-danger" onclick="confirmDelete('{{ url('/deleteuser', $user->id) }}')">Delete</button>
-                    <button class="btn btn-info" onclick="window.location.href='{{ url('/changeEmail', $user->id) }}'">Change Email</button>
-                    <button class="btn btn-warning" onclick="window.location.href='{{ url('/changeName', $user->id) }}'">Change Name</button>
+                    <button class="btn btn-info" onclick="window.location.href='{{ url('/editUser', $user->id) }}'">Edit</button>
                   </td>
                 @else
                   <td class="px-6 py-4 text-center">Not Allowed</td>

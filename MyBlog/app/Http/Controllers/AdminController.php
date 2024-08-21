@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function post_page()
     {
-        return view ('admin.post_page');
+        return view('admin.post_page');
     }
 
     public function add_post(Request $request)
@@ -94,79 +94,40 @@ class AdminController extends Controller
     public function homepage()
     {
         $post = Post::all();
-        return view ('home.homepage', compact('post'));
+        return view('home.homepage', compact('post'));
     }
-
-    // public function listReviews()
-    // {
-    //     $reviews = Review::where('approved', false)->get();
-    //     return view('admin.reviews', compact('reviews'));
-    // }
-
-    // public function approveReview($id)
-    // {
-    //     $review = Review::findOrFail($id);
-    //     $review->approved = true;
-    //     $review->save();
-    //     return redirect()->back()->with('message', 'Review approved.');
-    // }
 
     public function users()
     {
-        $data=user::all();
-        return view("admin.users",compact("data"));
+        $data = User::all();
+        return view('admin.users', compact('data'));
     }
 
     public function delete($id)
     {
-        $data=user::find($id);
+        $data = User::find($id);
         $data->delete();
         return redirect()->back();
     }
 
-    public function showChangeEmailForm($id)
+    public function showEditUserForm($id)
     {
-        $user = User::find($id);
-        if (!$user) {
-            return redirect()->back()->with('error', 'User not found.');
-        }
-
-        return view('admin.changeEmail', compact('user'));
+        $user = User::findOrFail($id);
+        return view('admin.editUser', compact('user'));
     }
 
-    public function changeEmail(Request $request, $id)
-    {
-        $request->validate([
-            'email' => 'required|email|unique:users,email,' . $id,
-        ]);
-
-        $user = User::find($id);
-        if (!$user) {
-            return redirect()->back()->with('error', 'User not found.');
-        }
-
-        $user->email = $request->input('email');
-        $user->save();
-
-        return redirect()->route('admin.users')->with('success', 'Email updated successfully.');
-    }
-
-    public function showChangeNameForm($id)
-    {
-        $user = User::find($id);
-        return view('admin.changeName', compact('user'));
-    }
-
-    public function updateName(Request $request, $id)
+    public function updateUser(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->name = $request->input('name');
+        $user->email = $request->input('email');
         $user->save();
 
-        return redirect()->route('admin.users')->with('success', 'Name updated successfully');
+        return redirect()->route('admin.users')->with('success', 'User information updated successfully.');
     }
 }
