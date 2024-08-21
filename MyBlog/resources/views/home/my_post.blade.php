@@ -229,7 +229,7 @@
                                     <img class="img_deg" src="/postimage/{{$item->image}}" alt="{{$item->title}}">
                                 </td>
                                 <td class="px-6 py-4 description_column">
-                                    {{$item->description}}
+                                    {!!$item->description!!}
                                 </td>
                                 <td class="px-6 py-4 text-right action_column">
                                     <a href="#" onclick="confirmDelete('{{ url('my_post_del', $item->id) }}'); return false;" class="btn btn-danger">Delete</a>

@@ -70,7 +70,7 @@
         <table border="3px" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-black-400 table-padding" id="postTable">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="px-4 py-3" style="width: 7%;text-align: justify;">Post Title</th>
+              <th scope="col" class="px-2 py-3" style="width: 7%;text-align: justify;">Post Title</th>
               <th scope="col" class="px-6 py-3" style="width: 20%;text-align: justify;">Post Description</th>
               <th scope="col" class="px-6 py-3" style="width: 8%;text-align: center;">Post By</th>
               <th scope="col" class="px-6 py-3" style="width: 10%;text-align: center;">Post Status</th>
@@ -85,7 +85,7 @@
           <tbody>
             @foreach ($post as $post)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black" style="width: 2px">
+              <td class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black" style="width: 2px">
                 {{$post->title}}
               </td>
               <td class="px-6 py-4 description-cell" style="width: 20%; text-align: justify;">

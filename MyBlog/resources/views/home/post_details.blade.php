@@ -164,7 +164,7 @@
         <div>
             <img id="postImage" style="padding: 20px; cursor: pointer;" src="/postimage/{{$post->image}}" class="services_img">
         </div>
-        <h4 class="description_text">{{$post->description}}</h4>
+        <h4 class="description_text">{!!$post->description!!}</h4>
         <div class="description_line"></div>
         <p>Post by <b>{{$post->name}}</b></p>
     </div>

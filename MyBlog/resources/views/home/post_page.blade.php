@@ -140,7 +140,7 @@
 
          <div class="field_deg">
             <label>Description</label>
-            <textarea name="description" id="description" required>{{$data->description}}</textarea>
+            <textarea name="description" id="description" required>{!!$data->description!!}</textarea>
          </div>
 
          <div class="field_deg">
