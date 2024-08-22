@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   @include('admin.css')
   @vite('resources/css/app.css')
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
+
 <body>
   @include('admin.header')
 
@@ -47,24 +50,8 @@
     @include('admin.footer')
   </div>
 
-  <script>
-    // Confirm Delete Function
-    function confirmDelete(url) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = url;
-        }
-      });
-    }
-  </script>
+ <!-- Java Scripts -->
+ <script src="\js\user.js"></script>
+
 </body>
 </html>

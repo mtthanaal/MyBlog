@@ -30,7 +30,7 @@
             <div class="search-bar">
                 <input type="text" id="searchInput" class="search-input" placeholder="Search...." onkeyup="searchTable()">
             </div>
-            
+
 
             @if($data->isEmpty())
                 <p class="text-center text-gray-600 dark:text-gray-400">No posts available. Please <a href="{{ url('create_post') }}" class="text-blue-600 dark:text-blue-500 hover:underline">add a post</a> to show in the table.</p>
@@ -92,5 +92,6 @@
 
     <!-- Java Scripts -->
     <script src="\js\my_post.js"></script>
+    
 </body>
 </html>

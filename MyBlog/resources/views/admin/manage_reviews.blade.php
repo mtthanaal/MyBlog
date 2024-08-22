@@ -5,43 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Reviews</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <style>
-        .container {
-            margin-top: 50px;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .table {
-            width: 100%;
-            margin-bottom: 20px;
-            border-collapse: collapse;
-        }
-        .table th, .table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
-        .btn-success {
-            background-color: #28a745;
-        }
-        .btn-danger {
-            background-color: #dc3545;
-        }
-        .alert {
-            padding: 20px;
-            background-color: #4CAF50;
-            color: white;
-            margin-bottom: 15px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/manage_reviews.css">
 </head>
 <body>
 

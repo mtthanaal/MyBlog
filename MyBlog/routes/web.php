@@ -10,9 +10,6 @@ Route::get('/', [HomeController::class, 'homepage'])->name('home.homepage');
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/post_page', [AdminController::class, 'post_page']);
     Route::post('/add_post', [AdminController::class, 'add_post']);
