@@ -44,13 +44,16 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>Manage Reviews</h1>
+
         @if(session('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
             </div>
         @endif
+
         <table class="table">
             <thead>
                 <tr>
@@ -81,5 +84,6 @@
             </tbody>
         </table>
     </div>
+
 </body>
 </html>

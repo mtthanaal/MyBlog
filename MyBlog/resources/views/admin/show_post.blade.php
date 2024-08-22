@@ -14,7 +14,7 @@
       cursor: pointer;
       text-decoration: underline;
     }
-    .img_deg {
+    .img-thumbnail {
       width: 300px; 
       height: 150px; 
       object-fit: cover; 
@@ -43,14 +43,37 @@
       border: 1px solid #ddd;
       width: 300px;
     }
+    .description-cell {
+      max-width: 250px; /* Adjust the max width as needed */
+      overflow: hidden;
+      position: relative;
+    }
+    .description-preview {
+      display: block;
+      max-height: 60px; /* Adjust the height as needed */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      margin-bottom: 5px;
+      text-align: justify; /* Justify the text */
+    }
+    .description-full {
+      display: none;
+      white-space: normal;
+      text-align: justify; /* Justify the text */
+    }
+    .description-cell .read-more {
+      display: block;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
   @include('admin.header')
+
   <div class="d-flex align-items-stretch">
-    <!-- Sidebar Navigation-->
     @include('admin.sidebar')
-    <!-- Sidebar Navigation end-->
+    
     <div class="page-content">
       @if (session()->has('message'))
       <div class="alert alert-danger">
@@ -59,7 +82,7 @@
       </div>
       @endif
 
-      <h1 class="title_deg">All Post</h1>
+      <h1 class="title_deg">All Posts</h1>
 
       <!-- Search Bar -->
       <div class="search-bar">
@@ -67,134 +90,155 @@
       </div>
 
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table border="3px" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-black-400 table-padding" id="postTable">
+        <table border="3" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-black-400 table-padding" id="postTable">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="px-2 py-3" style="width: 7%;text-align: justify;">Post Title</th>
-              <th scope="col" class="px-6 py-3" style="width: 20%;text-align: justify;">Post Description</th>
-              <th scope="col" class="px-6 py-3" style="width: 8%;text-align: center;">Post By</th>
-              <th scope="col" class="px-6 py-3" style="width: 10%;text-align: center;">Post Status</th>
-              <th scope="col" class="px-6 py-3" style="width: 8%;text-align: center;">User Type</th>
-              <th scope="col" class="px-6 py-3" style="width: 10%;text-align: center;">Image</th>
-              <th scope="col" class="px-6 py-3" style="width: 7%;text-align: right;"></th>
-              <th scope="col" class="px-6 py-3" style="width: 7%;text-align: center;"></th>
-              <th scope="col" class="px-6 py-3" style="width: 7%;text-align: center;">Actions</th>
-              <th scope="col" class="px-6 py-3" style="width: 7%;text-align: center;"></th>
+              <th scope="col" class="px-2 py-3">Post Title</th>
+              <th scope="col" class="px-6 py-3">Post Description</th>
+              <th scope="col" class="px-6 py-3">Post By</th>
+              <th scope="col" class="px-6 py-3">Post Status</th>
+              <th scope="col" class="px-6 py-3">User Type</th>
+              <th scope="col" class="px-6 py-3">Image</th>
+              <th scope="col" class="px-6 py-3"></th>
+              <th scope="col" class="px-6 py-3"></th>
+              <th scope="col" class="px-6 py-3">Actions</th>
+              <th scope="col" class="px-6 py-3"></th>
             </tr>
           </thead>
           <tbody>
             @foreach ($post as $post)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black" style="width: 2px">
+              <td class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                 {{$post->title}}
               </td>
-              <td class="px-6 py-4 description-cell" style="width: 20%; text-align: justify;">
-                <span class="description-preview">{{ Str::limit($post->description, 100) }}</span>
-                <span class="description-full" style="display:none;">{{$post->description}}</span>
+              <td class="px-6 py-4 description-cell">
+                <span class="description-preview">{!! Str::limit(strip_tags($post->description), 100) !!}</span>
+                <span class="description-full">{!! $post->description !!}</span>
                 <a href="#" class="read-more" onclick="toggleDescription(event)">Read More</a>
               </td>
-              <td class="px-6 py-4" style="width: 8%;text-align: center;">{{$post->name}}</td>
-              <td class="px-6 py-4" style="width: 10%;text-align: center;">{{$post->post_status}}</td>
-              <td class="px-6 py-4" style="width: 8%; text-align: center;">{{$post->usertype}}</td>
+              <td class="px-6 py-4">{{$post->name}}</td>
+              <td class="px-6 py-4">{{$post->post_status}}</td>
+              <td class="px-6 py-4">{{$post->usertype}}</td>
               <td class="px-6 py-4">
-                <img class="img_deg" src="postimage/{{$post->image}}">
+                <img class="img-thumbnail" src="postimage/{{$post->image}}">
               </td>
-              <td class="px-6 py-4 text-center" style="width: 7%;">
-                <a href="{{url('delete_post',$post->id)}}" class="btn btn-danger" onclick="confirmation(event)">Delete</a>
+              <td class="px-6 py-4 text-center">
+                <a href="#" class="btn btn-danger" onclick="confirmDelete(event, '{{ url('delete_post', $post->id) }}')">Delete</a>
               </td>
-              <td class="px-6 py-4 text-center" style="width: 7%;">
-                <a href="{{url('edit_page',$post->id)}}" class="btn btn-info">Edit</a>
+              <td class="px-6 py-4 text-center">
+                <a href="#" class="btn btn-info" onclick="confirmEdit(event, '{{ url('edit_page', $post->id) }}')">Edit</a>
               </td>
-              <td class="px-6 py-4 text-center" style="width: 7%;">
-                <a onclick="return confirm('Are you sure to accept this post ?')" href="{{url('accept_post',$post->id)}}" class="btn btn-success">Accept</a>
+              <td class="px-6 py-4 text-center">
+                <a href="#" class="btn btn-success" onclick="confirmAccept(event, '{{ url('accept_post', $post->id) }}')">Accept</a>
               </td>
-              <td class="px-6 py-4 text-center" style="width: 7%;">
-                <a onclick="return confirm('Are you sure to reject this post ?')" href="{{url('reject_post',$post->id)}}" class="btn btn-info">Reject</a>
+              <td class="px-6 py-4 text-center">
+                <a href="#" class="btn btn-info" onclick="confirmReject(event, '{{ url('reject_post', $post->id) }}')">Reject</a>
               </td>
             </tr>
             @endforeach
           </tbody>
         </table>
       </div>
-
     </div>
+    
     @include('admin.footer')
-
     <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
+  </div>
 
-    <script type="text/javascript">
-      function toggleDescription(event) {
-        event.preventDefault();
-        var link = event.currentTarget;
-        var row = link.closest('tr');
-        var preview = row.querySelector('.description-preview');
-        var full = row.querySelector('.description-full');
+  <script type="text/javascript">
+    function toggleDescription(event) {
+      event.preventDefault();
+      const link = event.currentTarget;
+      const row = link.closest('tr');
+      const preview = row.querySelector('.description-preview');
+      const full = row.querySelector('.description-full');
 
-        if (full.style.display === "none") {
-          preview.style.display = "none";
-          full.style.display = "inline";
-          link.textContent = "Read Less";
-        } else {
-          preview.style.display = "inline";
-          full.style.display = "none";
-          link.textContent = "Read More";
-        }
+      if (full.style.display === "none") {
+        preview.style.display = "none";
+        full.style.display = "block";
+        link.textContent = "Read Less";
+      } else {
+        preview.style.display = "block";
+        full.style.display = "none";
+        link.textContent = "Read More";
       }
+    }
 
-      function confirmation(ev) {
-        ev.preventDefault();
-        var urlToRedirect = ev.currentTarget.getAttribute('href');
-        console.log(urlToRedirect);
-
-        swal({
-          title: "Are you sure to delete this ",
-          text: "You won't be able to revert this delete",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willCancel) => {
-          if (willCancel) {
-            window.location.href = urlToRedirect;
-          }
-        });
-      }
-
-      function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-
-      // Show or hide the "Back to Top" button based on scroll position
-      window.addEventListener('scroll', function() {
-        var button = document.querySelector('.back-to-top');
-        if (window.scrollY > 300) {
-          button.style.display = 'block';
-        } else {
-          button.style.display = 'none';
+    function confirmDelete(event, urlToRedirect) {
+      event.preventDefault();
+      swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this action.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          window.location.href = urlToRedirect;
         }
       });
+    }
 
-      // Function to filter table rows based on search input
-      function searchTable() {
-        var input = document.getElementById('searchInput');
-        var filter = input.value.toLowerCase();
-        var table = document.getElementById('postTable');
-        var trs = table.getElementsByTagName('tr');
+    function confirmEdit(event, urlToRedirect) {
+      event.preventDefault();
+      // Handle edit confirmation if needed
+      window.location.href = urlToRedirect;
+    }
 
-        for (var i = 1; i < trs.length; i++) {
-          var tds = trs[i].getElementsByTagName('td');
-          var found = false;
-
-          for (var j = 0; j < tds.length; j++) {
-            if (tds[j].textContent.toLowerCase().indexOf(filter) > -1) {
-              found = true;
-              break;
-            }
-          }
-
-          trs[i].style.display = found ? '' : 'none';
+    function confirmAccept(event, urlToRedirect) {
+      event.preventDefault();
+      swal({
+        title: "Are you sure?",
+        text: "You are about to accept this post.",
+        icon: "info",
+        buttons: true,
+        dangerMode: false,
+      })
+      .then((willAccept) => {
+        if (willAccept) {
+          window.location.href = urlToRedirect;
         }
-      }
-    </script>
-  </body>
+      });
+    }
+
+    function confirmReject(event, urlToRedirect) {
+      event.preventDefault();
+      swal({
+        title: "Are you sure?",
+        text: "You are about to reject this post.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willReject) => {
+        if (willReject) {
+          window.location.href = urlToRedirect;
+        }
+      });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', function() {
+      const button = document.querySelector('.back-to-top');
+      button.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+
+    function searchTable() {
+      const input = document.getElementById('searchInput');
+      const filter = input.value.toLowerCase();
+      const table = document.getElementById('postTable');
+      const trs = table.getElementsByTagName('tr');
+
+      Array.from(trs).slice(1).forEach(row => {
+        const tds = row.getElementsByTagName('td');
+        const found = Array.from(tds).some(td => td.textContent.toLowerCase().includes(filter));
+        row.style.display = found ? '' : 'none';
+      });
+    }
+  </script>
+</body>
 </html>
