@@ -29,25 +29,58 @@
             right: 10px;
             cursor: pointer;
         }
-        /* Additional custom styles for table borders */
         .full-border-table {
-            border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            background-color: #1f1f1f; /* Black theme */
+            color: #e0e0e0; /* Light text color */
         }
         .full-border-table th, .full-border-table td {
-            border: 2px solid #ddd; /* Set border width and color */
+            border: 2px solid #333; /* Dark border */
             padding: 15px;
-            text-align: left;
         }
         .full-border-table thead {
-            background-color: #f9f9f9;
+            background-color: #333; /* Darker header */
         }
         .full-border-table thead th {
-            border-bottom: 2px solid #ddd;
+            border-bottom: 2px solid #444; /* Darker border for header */
             text-align: center;
         }
+        .full-border-table tbody tr:nth-child(odd) {
+            background-color: #2a2a2a; /* Slightly lighter black for odd rows */
+        }
+        .full-border-table tbody tr:nth-child(even) {
+            background-color: #1f1f1f; /* Black for even rows */
+        }
         .full-border-table tbody tr:hover {
-            background-color: #f1f1f1;
+            background-color: #3a3a3a; /* Lighter black on hover */
+        }
+        .comment-cell {
+            max-width: 250px; /* Reduce length of Comment column */
+            
+        }
+        .btn-approve {
+            background-color: #28a745; /* Green background for approve */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-reject {
+            background-color: #dc3545; /* Red background for reject */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-approve:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        .btn-reject:hover {
+            background-color: #c82333; /* Darker red on hover */
         }
         .back-to-top {
             position: fixed;
@@ -80,33 +113,33 @@
                 </div>
             @endif
 
-            <h1 class="text-2xl font-bold mb-6">Manage Reviews</h1>
+            <h1 class="text-center text-white text-2xl font-bold mb-8">Reviews</h1>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="full-border-table">
-                    <thead>
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th>User Name</th>
-                            <th>Rating</th>
-                            <th>Comment</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th scope="col" class="px-6 py-3">User Name</th>
+                            <th scope="col" class="px-6 py-3">Rating</th>
+                            <th scope="col" class="px-6 py-3 comment-cell">Comment</th>
+                            <th scope="col" class="px-6 py-3">Status</th>
+                            <th scope="col" class="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($reviews as $review)
-                            <tr>
-                                <td>{{ $review->user_name }}</td>
-                                <td>{{ $review->rating }}</td>
-                                <td>{{ $review->comment }}</td>
-                                <td>{{ ucfirst($review->status) }}</td>
-                                <td class="text-right">
-                                    <form action="{{ url('admin/review/'.$review->id.'/approve') }}" method="POST" style="display:inline-block;" onsubmit="return confirmApproval(event)">
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <td class="px-6 py-4">{{ $review->user_name }}</td>
+                                <td class="px-6 py-4">{{ $review->rating }}</td>
+                                <td class="px-6 py-4 comment-cell">{{ $review->comment }}</td>
+                                <td class="px-6 py-4 ">{{ ucfirst($review->status) }}</td>
+                                <td class="px-6 py-4 ">
+                                    <form action="{{ url('admin/review/'.$review->id.'/approve') }}" method="POST" style="display:inline-block; padding: 10px" onsubmit="return confirmApproval(event)">
                                         @csrf
-                                        <button type="submit" class="btn btn-success">Approve</button>
+                                        <button type="submit" class="btn-approve">Approve</button>
                                     </form>
                                     <form action="{{ url('admin/review/'.$review->id.'/reject') }}" method="POST" style="display:inline-block;" onsubmit="return confirmRejection(event)">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                        <button type="submit" class="btn-reject">Reject</button>
                                     </form>
                                 </td>
                             </tr>

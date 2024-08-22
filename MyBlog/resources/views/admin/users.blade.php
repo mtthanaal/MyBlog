@@ -13,7 +13,7 @@
     @include('admin.sidebar')
 
     <div class="page-content container mt-full">
-      <h1 class="text-center text-white text-2xl font-bold mb-8">All Users</h1>
+      <h1 class="text-center text-white text-2xl font-bold mb-8"> Users</h1>
 
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
