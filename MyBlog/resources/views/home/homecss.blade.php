@@ -36,7 +36,6 @@
                   z-index: 1;
             }
 
-            <style>
          body {
             font-family: "Times New Roman", Times, serif;
             background-color: #f0f2f5;
@@ -202,8 +201,6 @@
             margin: 50px auto;
             text-align: center;
          }
-
-         </style>
 
         
       </style>

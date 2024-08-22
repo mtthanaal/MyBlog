@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <!-- basic -->
     @include('home.homecss')
-
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
     <!-- CSS for the page -->
     <link rel="stylesheet" href="/css/my_post.css">
 
 </head>
+
 <body>
+    
     <!-- header section start -->
     <div class="header_section">
         @include('home.header')

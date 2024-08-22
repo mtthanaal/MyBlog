@@ -1,180 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <!-- Basic -->
     <base href="/public">
     @include('home.homecss')
+    <!-- CSS for the page -->
+    <link rel="stylesheet" href="\css\post_details.css">
 
-    <style>
-        /* CSS for Back to Top Button */
-        #back-to-top {
-            display: inline-block;
-            background-color: #FF9800;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            border-radius: 50%;
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            transition: background-color .3s, opacity .3s, visibility .3s;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1000;
-        }
-        #back-to-top::after {
-            content: "\f077";
-            font-family: FontAwesome;
-            font-weight: normal;
-            font-style: normal;
-            font-size: 2em;
-            line-height: 50px;
-            color: #fff;
-        }
-        #back-to-top:hover {
-            cursor: pointer;
-            background-color: #333;
-        }
-        #back-to-top:active {
-            background-color: #555;
-        }
-        #back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Button Styles */
-        .review-actions button {
-            border: none;
-            padding: 10px 15px;
-            margin: 5px;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        .reply-btn {
-            background-color: #4CAF50; /* Green */
-        }
-
-        .reply-btn:hover {
-            background-color: #45a049; /* Darker green */
-            transform: scale(1.05);
-        }
-
-        .edit-btn {
-            background-color: #2196F3; /* Blue */
-        }
-
-        .edit-btn:hover {
-            background-color: #0b7dda; /* Darker blue */
-            transform: scale(1.05);
-        }
-
-        .delete-btn {
-            background-color: #f44336; /* Red */
-        }
-
-        .delete-btn:hover {
-            background-color: #e53935; /* Darker red */
-            transform: scale(1.05);
-        }
-
-        /* Additional Styles */
-        .review-form {
-            margin: 20px 0;
-        }
-
-        .review-display {
-            margin-top: 20px;
-        }
-
-        .rating {
-            display: inline-block;
-        }
-
-        .rating input[type="radio"] {
-            display: none;
-        }
-
-        .rating label {
-            color: #FFD700;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
-
-        .rating input[type="radio"]:checked ~ label {
-            color: #FFD700;
-        }
-
-        .description_text {
-            font-size: 16px;
-            line-height: 2;
-            padding: 20px;
-        }
-
-        .description_line {
-            border-bottom: 2px solid #FF9800;
-            margin: 10px 0;
-        }
-
-        .video_section iframe {
-            max-width: 100%;
-            height: 600px;
-        }
-        /* Submit Button Styles */
-         .submit-btn {
-            background-color: #4CAF50; /* Green */
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            text-transform: uppercase;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-         }
-
-         .submit-btn:hover {
-            background-color: #45a049; /* Darker green */
-            transform: scale(1.05);
-         }
-
-         .submit-btn:active {
-            background-color: #388e3c; /* Even darker green */
-            transform: scale(1.02);
-         }
-         .image-container {
-            display: flex;
-            justify-content: center; /* Centers the image horizontally */
-            align-items: center; /* Centers the image vertically if container has a height */
-            height: 100vh; /* Adjust as needed or set a specific height */
-        }
-
-        #postImage {
-            max-width: 70%; /* Ensures image scales down within container */
-            max-height: 70vh; /* Adjust the height as needed */
-            padding: 10px;
-            cursor: pointer;
-        }
-        .post-title {
-            font-size: 2.5rem; /* Adjust size as needed */
-            font-weight: bold;
-            color: #333; /* Choose a color that fits your design */
-            text-align: center; /* Center-aligns the title */
-            margin: 20px 0; /* Adjusts the space above and below the title */
-            line-height: 1.3; /* Adjusts the line height for better readability */
-            font-family: 'Arial', sans-serif; /* Or use a different font-family if preferred */
-        }
-
-
-
-    </style>
 </head>
 
 <body>
@@ -287,9 +120,6 @@
         </div>
     </div>
 
-    <!-- Footer section start -->
-    @include('home.footer')
-    <!-- Footer section end -->
 
     <!-- Copyright section start -->
     <div class="copyright_section">
@@ -314,44 +144,8 @@
     <!-- Javascript -->
     <script src="js/owl.carousel.js"></script>
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-
     <!-- Custom JavaScript -->
-    <script>
-        document.getElementById('postImage').addEventListener('click', function () {
-            this.classList.toggle('zoom-out');
-        });
+    <script src="\js\post_details.js"></script>
 
-        // Toggle reply and edit forms
-        document.querySelectorAll('.reply-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const reviewId = this.getAttribute('data-review-id');
-                document.getElementById('reply-form-' + reviewId).style.display = 'block';
-                document.getElementById('edit-form-' + reviewId).style.display = 'none';
-            });
-        });
-
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const reviewId = this.getAttribute('data-review-id');
-                document.getElementById('edit-form-' + reviewId).style.display = 'block';
-                document.getElementById('reply-form-' + reviewId).style.display = 'none';
-            });
-        });
-
-        // Show Back to Top button when scrolled down
-        window.addEventListener('scroll', function() {
-            const button = document.getElementById('back-to-top');
-            if (window.scrollY > 300) {
-                button.classList.add('show');
-            } else {
-                button.classList.remove('show');
-            }
-        });
-
-        // Scroll to top on button click
-        document.getElementById('back-to-top').addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
 </body>
 </html>

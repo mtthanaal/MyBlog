@@ -1,0 +1,12 @@
+.client_img img {
+    width: 350px;  
+    height: 250px;
+    object-fit: cover; 
+ }
+
+ .client_taital_left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; 
+ }

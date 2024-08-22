@@ -8,94 +8,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @include('admin.css')
     @vite('resources/css/app.css')
-    <style>
-        .container {
-            margin-top: 50px;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .alert {
-            padding: 20px;
-            background-color: #4CAF50;
-            color: white;
-            margin-bottom: 15px;
-            position: relative;
-        }
-        .alert .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-        .full-border-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            background-color: #1f1f1f; /* Black theme */
-            color: #e0e0e0; /* Light text color */
-        }
-        .full-border-table th, .full-border-table td {
-            border: 2px solid #333; /* Dark border */
-            padding: 15px;
-        }
-        .full-border-table thead {
-            background-color: #333; /* Darker header */
-        }
-        .full-border-table thead th {
-            border-bottom: 2px solid #444; /* Darker border for header */
-            text-align: center;
-        }
-        .full-border-table tbody tr:nth-child(odd) {
-            background-color: #2a2a2a; /* Slightly lighter black for odd rows */
-        }
-        .full-border-table tbody tr:nth-child(even) {
-            background-color: #1f1f1f; /* Black for even rows */
-        }
-        .full-border-table tbody tr:hover {
-            background-color: #3a3a3a; /* Lighter black on hover */
-        }
-        .comment-cell {
-            max-width: 250px; /* Reduce length of Comment column */
-            
-        }
-        .btn-approve {
-            background-color: #28a745; /* Green background for approve */
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-reject {
-            background-color: #dc3545; /* Red background for reject */
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-approve:hover {
-            background-color: #218838; /* Darker green on hover */
-        }
-        .btn-reject:hover {
-            background-color: #c82333; /* Darker red on hover */
-        }
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none;
-            z-index: 1000;
-        }
-    </style>
+
+    <!-- CSS for the page -->
+    <link rel="stylesheet" href="\css\approved_comments.css">
+
 </head>
 <body>
     @include('admin.header')
@@ -155,52 +71,8 @@
 
     <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
 
-    <script type="text/javascript">
-        function confirmApproval(ev) {
-            ev.preventDefault();
-            var form = ev.currentTarget;
-            swal({
-                title: "Are you sure you want to approve this review?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willApprove) => {
-                if (willApprove) {
-                    form.submit();
-                }
-            });
-            return false; // Prevent form submission until confirmation
-        }
+    <!-- Java Scripts -->
+    <script src="\js\approved_comments.js"></script>
 
-        function confirmRejection(ev) {
-            ev.preventDefault();
-            var form = ev.currentTarget;
-            swal({
-                title: "Are you sure you want to reject this review?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willReject) => {
-                if (willReject) {
-                    form.submit();
-                }
-            });
-            return false; // Prevent form submission until confirmation
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Show or hide the "Back to Top" button based on scroll position
-        window.addEventListener('scroll', function() {
-            var button = document.querySelector('.back-to-top');
-            if (window.scrollY > 300) {
-                button.style.display = 'block';
-            } else {
-                button.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>
