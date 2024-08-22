@@ -30,10 +30,10 @@
                 <td class="px-6 py-4">{{ $user->name }}</td>
                 <td class="px-6 py-4">{{ $user->email }}</td>
                 <td class="px-6 py-4 text-center">
-                  @if ($user->usertype == "user")
-                    <button class="btn btn-danger" onclick="confirmDelete('{{ url('/deleteuser', $user->id) }}')">Delete</button>
-                    <button class="btn btn-info" onclick="window.location.href='{{ url('/editUser', $user->id) }}'">Edit</button>
-                  @else
+                @if ($user->usertype == "user")
+                    <button class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 mr-2" onclick="confirmDelete('{{ url('/deleteuser', $user->id) }}')">Delete</button>
+                    <button class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="window.location.href='{{ url('/editUser', $user->id) }}'">Edit</button>
+                @else
                     Not Allowed
                   @endif
                 </td>

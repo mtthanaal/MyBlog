@@ -133,14 +133,15 @@
                                 <td class="px-6 py-4 comment-cell">{{ $review->comment }}</td>
                                 <td class="px-6 py-4 ">{{ ucfirst($review->status) }}</td>
                                 <td class="px-6 py-4 ">
-                                    <form action="{{ url('admin/review/'.$review->id.'/approve') }}" method="POST" style="display:inline-block; padding: 10px" onsubmit="return confirmApproval(event)">
-                                        @csrf
-                                        <button type="submit" class="btn-approve">Approve</button>
-                                    </form>
-                                    <form action="{{ url('admin/review/'.$review->id.'/reject') }}" method="POST" style="display:inline-block;" onsubmit="return confirmRejection(event)">
-                                        @csrf
-                                        <button type="submit" class="btn-reject">Reject</button>
-                                    </form>
+                                <form action="{{ url('admin/review/'.$review->id.'/approve') }}" method="POST" style="display:inline-block; padding: 10px" onsubmit="return confirmApproval(event)">
+                                    @csrf
+                                    <button type="submit" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">Approve</button>
+                                </form>
+                                <form action="{{ url('admin/review/'.$review->id.'/reject') }}" method="POST" style="display:inline-block;" onsubmit="return confirmRejection(event)">
+                                    @csrf
+                                    <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">Reject</button>
+                                </form>
+
                                 </td>
                             </tr>
                         @endforeach

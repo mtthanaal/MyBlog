@@ -82,7 +82,7 @@
       </div>
       @endif
 
-      <h1 class="title_deg">All Posts</h1>
+      <h1 class="title_deg">Posts</h1>
 
       <!-- Search Bar -->
       <div class="search-bar">
